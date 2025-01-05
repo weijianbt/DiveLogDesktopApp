@@ -1,0 +1,32 @@
+﻿<Window x:Class="DiveLogApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiveLogApplication"
+        xmlns:vm="clr-namespace:DiveLogApplication.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" BorderBrush="LightGray" BorderThickness="1">
+            <StackPanel Orientation="Vertical" Margin="5">
+                <Button Content="Main Page" Width="70" Height="70" Command="{Binding NavigateMainPageCommand}"/>
+                <Button Content="User Profile" Width="70" Height="70" Command="{Binding NavigateUserProfileCommand}"/>
+                <Button Content="Dive logs" Width="70" Height="70" Command="{Binding NavigateDiveLogCommand}"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Column="1">
+            <Frame NavigationUIVisibility="Hidden"  Content="{Binding SelectedContent}"/>
+        </Border>
+        
+    </Grid>
+</Window>
