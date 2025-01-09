@@ -6,7 +6,6 @@ namespace DiveLogApplication.ViewModels
 {
     public class MainWindowViewModel : ViewModel
     {
-
         private Frame _selectedContent;
 
         public MainWindowViewModel()
@@ -16,10 +15,9 @@ namespace DiveLogApplication.ViewModels
         }
 
         public RelayCommand NavigateMainPageCommand { get; private set; }
-
         public RelayCommand NavigateUserProfileCommand { get; private set; }
-
         public RelayCommand NavigateDiveLogCommand { get; private set; }
+        public RelayCommand NavigateSettingsCommand { get; private set; }
 
         public Frame SelectedContent
         {
@@ -64,6 +62,13 @@ namespace DiveLogApplication.ViewModels
                 },
                 param => true
                 );
+
+            NavigateSettingsCommand = new RelayCommand(
+                param =>
+                {
+                    SelectedContent.Navigate(new Uri("Views/SettingsView.xaml", UriKind.Relative));
+                },
+                param => true);
         }
 
     }

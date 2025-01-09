@@ -1,0 +1,54 @@
+﻿<Page x:Class="DiveLogApplication.Views.SettingsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DiveLogApplication.Views"
+      xmlns:vm="clr-namespace:DiveLogApplication.ViewModels"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Background="White"
+      Title="SettingsView">
+    <Page.DataContext>
+        <vm:SettingsViewModel/>
+    </Page.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.8*"/>
+            <!--<ColumnDefinition Width="0.2*"/>-->
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        
+        <GroupBox Header="General" Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.7*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Dive License Directory"/>
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.8*"/>
+                            <ColumnDefinition Width="0.2*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding DiveLicenseDirectory}" VerticalContentAlignment="Center"/>
+                        <Button Grid.Row="0" Grid.Column="1" Content="..." Command="{Binding SelectDirectoryCommand}"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </GroupBox>
+
+        <Button Grid.Row="1" Content="Save" HorizontalAlignment="Right" Width="80" Margin="5" Command="{Binding SaveCommand}"/>
+    </Grid>
+</Page>

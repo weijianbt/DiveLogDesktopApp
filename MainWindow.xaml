@@ -21,11 +21,12 @@
                 <Button Content="Main Page" Width="70" Height="70" Command="{Binding NavigateMainPageCommand}"/>
                 <Button Content="User Profile" Width="70" Height="70" Command="{Binding NavigateUserProfileCommand}"/>
                 <Button Content="Dive logs" Width="70" Height="70" Command="{Binding NavigateDiveLogCommand}"/>
+                <Button Content="Settings" Width="70" Height="70" Command="{Binding NavigateSettingsCommand}"/>
             </StackPanel>
         </Border>
 
         <Border Grid.Column="1">
-            <Frame NavigationUIVisibility="Hidden"  Content="{Binding SelectedContent}"/>
+            <Frame NavigationUIVisibility="Hidden" Content="{Binding SelectedContent}"/>
         </Border>
         
     </Grid>
