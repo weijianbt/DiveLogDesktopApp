@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiveLogApplication.ViewModels;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -16,10 +17,12 @@ namespace DiveLogApplication.Models
         private bool _retriedLoad;
         private ObservableCollection<DiveLicense> _diveLicenseList;
         private XDocument _diveLicenseFile = new XDocument();
+        private SettingsViewModel _settings;
 
         public DiveLicenseManager()
         {
-            _licenseDirectory = @"C:\Users\twjbr\Documents\DiveLogs\DiveLicense.xml";
+            _settings = new SettingsViewModel();
+            _licenseDirectory = Path.Combine(_settings.DiveLicenseDirectory, "DiveLicense.xml");
         }
 
         public void WriteToFile(DiveLicense data)

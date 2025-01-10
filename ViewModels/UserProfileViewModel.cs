@@ -13,9 +13,11 @@ namespace DiveLogApplication.ViewModels
         private string _profilePicturePath;
         private ObservableCollection<DiveLicense> _diveLicenseList;
         private DiveLicense _selectedDiveLicense;
+        private SettingsViewModel _settings;
 
         public UserProfileViewModel()
         {
+            _settings = new SettingsViewModel();
             _diveLicenseManager = new DiveLicenseManager();
             WireCommands();
 
@@ -64,6 +66,7 @@ namespace DiveLogApplication.ViewModels
                 param =>
                 {
                     DiveLicenseList = _diveLicenseManager.LoadData();
+
                 },
                 param => true
                 );
