@@ -1,17 +1,12 @@
 ﻿using DiveLogApplication.Core;
-using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using DiveLogApplication.Utilities;
+using System;
 using System.IO;
+using System.Windows.Forms;
 
 namespace DiveLogApplication.ViewModels
 {
-	public class SettingsViewModel : ViewModel
+    public class SettingsViewModel : ViewModel
     {
         private const string _general = "General";
         private readonly string _diveLogSettingsFile = "DiveLogSettings.ini";
@@ -33,8 +28,8 @@ namespace DiveLogApplication.ViewModels
         public string DiveLicenseDirectory
         {
             get => _diveLicenseDirectory;
-            set 
-            { 
+            set
+            {
                 _diveLicenseDirectory = value;
                 OnPropertyChanged();
             }

@@ -2,9 +2,6 @@
 using DiveLogApplication.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiveLogApplication.ViewModels
 {
@@ -45,6 +42,8 @@ namespace DiveLogApplication.ViewModels
                     AverageDepth = 10
                 }
             };
+
+            WireCommands();
 
         }
 
@@ -128,9 +127,19 @@ namespace DiveLogApplication.ViewModels
             }
         }
 
-        public override string ToString()
+        public RelayCommand OpenDetailsCommand { get; set; }
+
+        private void WireCommands()
         {
-            return DiveLogList[0].DiveSite.ToString();
+            OpenDetailsCommand = new RelayCommand(
+                param =>
+                {
+                    if (param is DiveEntry selectedDiveEntry)
+                    {
+
+                    }
+                },
+                param => true);
         }
     }
 }
