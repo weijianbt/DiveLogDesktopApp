@@ -1,0 +1,90 @@
+﻿<Window x:Class="DiveLogApplication.Views.AddNewDiveEntry"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiveLogApplication.Views"
+        xmlns:vm="clr-namespace:DiveLogApplication.ViewModels"
+        mc:Ignorable="d"
+        Title="Add/Edit New Dive Entry" Height="300" Width="450">
+    <Window.DataContext>
+        <vm:AddNewDiveEntryViewModel/>
+    </Window.DataContext>
+    <Border BorderBrush="LightGray" BorderThickness="1" Margin="5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.9*"/>
+                <RowDefinition Height="0.1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <Grid.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="IsEnabled" Value="{Binding IsEditable}"/>
+                    </Style>
+                </Grid.Resources>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Location: "/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Location}"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Dive Site: "/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DiveSite}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Start Time: "/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding StartTime}"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Content="End Time: "/>
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding EndTime}"/>
+
+                <Label Grid.Row="4" Grid.Column="0" Content="Duration: "/>
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Duration}"/>
+
+                <Label Grid.Row="5" Grid.Column="0" Content="Max Depth (m): "/>
+                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding MaxDepth}"/>
+
+                <Label Grid.Row="6" Grid.Column="0" Content="Average Depth (m): "/>
+                <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding AverageDepth}"/>
+
+            </Grid>
+
+            <Grid Grid.Row="1" HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MaxWidth="90"/>
+                    <ColumnDefinition MaxWidth="90"/>
+                    <ColumnDefinition MaxWidth="90"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Width" Value="80"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="2"/>
+                    </Style>
+                </Grid.Resources>
+
+                <Button Grid.Column="0" Content="Edit" Command="{Binding EditEntryCommand}"/>
+                <Button Grid.Column="1" Content="Save" Command="{Binding SaveEntryCommand}"/>
+                <Button Grid.Column="2" Content="Cancel" Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

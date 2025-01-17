@@ -3,15 +3,15 @@ using System;
 
 namespace DiveLogApplication.Models
 {
-    public class DiveEntry : ViewModel
+    public class DiveEntry
     {
         public DiveEntry()
         {
 
         }
 
-        public string DiveSite { get; set; }
         public string Location { get; set; }
+        public string DiveSite { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public double Duration { get; set; }

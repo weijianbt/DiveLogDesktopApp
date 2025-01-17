@@ -1,7 +1,9 @@
 ﻿using DiveLogApplication.Core;
 using DiveLogApplication.Models;
+using DiveLogApplication.Views;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace DiveLogApplication.ViewModels
 {
@@ -136,10 +138,17 @@ namespace DiveLogApplication.ViewModels
                 {
                     if (param is DiveEntry selectedDiveEntry)
                     {
+                        var vm = new AddNewDiveEntryViewModel(selectedDiveEntry);
 
+                        var dialog = new AddNewDiveEntry
+                        {
+                            DataContext = vm
+                        };
+
+                        dialog.ShowDialog();
                     }
                 },
-                param => true);
+                param => param is DiveEntry);
         }
     }
 }
