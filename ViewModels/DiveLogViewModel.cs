@@ -3,7 +3,10 @@ using DiveLogApplication.Models;
 using DiveLogApplication.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
+//using System.Windows.Forms;
 
 namespace DiveLogApplication.ViewModels
 {
@@ -16,11 +19,12 @@ namespace DiveLogApplication.ViewModels
         private double _duration;
         private double _maxDepth;
         private double _averageDepth;
-        private List<DiveEntry> _diveLogList;
+        private ObservableCollection<DiveEntry> _diveLogList;
+        private DiveEntry _selectedDiveEntry;
 
         public DiveLogViewModel()
         {
-            DiveLogList = new List<DiveEntry>
+            DiveLogList = new ObservableCollection<DiveEntry>()
             {
                 new DiveEntry()
                 {
@@ -119,7 +123,7 @@ namespace DiveLogApplication.ViewModels
             }
         }
 
-        public List<DiveEntry> DiveLogList
+        public ObservableCollection<DiveEntry> DiveLogList
         {
             get => _diveLogList;
             set
@@ -129,16 +133,30 @@ namespace DiveLogApplication.ViewModels
             }
         }
 
-        public RelayCommand OpenDetailsCommand { get; set; }
+        public DiveEntry SelectedDiveEntry
+        {
+            get => _selectedDiveEntry;
+            set
+            {
+                _selectedDiveEntry = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public RelayCommand ViewEntryCommand { get; set; }
+        public RelayCommand NewEntryCommand { get; set; }
+        public RelayCommand EditEntryCommand { get; set; }
+        public RelayCommand DuplicateEntryCommand { get; set; }
+        public RelayCommand DeleteEntryCommand { get; set; }
 
         private void WireCommands()
         {
-            OpenDetailsCommand = new RelayCommand(
+            ViewEntryCommand = new RelayCommand(
                 param =>
                 {
                     if (param is DiveEntry selectedDiveEntry)
                     {
-                        var vm = new AddNewDiveEntryViewModel(selectedDiveEntry);
+                        var vm = new AddNewDiveEntryViewModel(selectedDiveEntry, isNewEntry:false, actionSource: ActionSource.DoubleClickFromList);
 
                         var dialog = new AddNewDiveEntry
                         {
@@ -149,6 +167,56 @@ namespace DiveLogApplication.ViewModels
                     }
                 },
                 param => param is DiveEntry);
+
+            NewEntryCommand = new RelayCommand(
+                param =>
+                {
+                    var vm = new AddNewDiveEntryViewModel(new DiveEntry(), isNewEntry:true, actionSource: ActionSource.ClickFromButtonCommand);
+                    var dialog = new AddNewDiveEntry
+                    {
+                        DataContext = vm
+                    };
+                    dialog.ShowDialog();
+                },
+                param => true);
+
+            EditEntryCommand = new RelayCommand(
+                param =>
+                {
+                    if (SelectedDiveEntry != null)
+                    {
+                        var vm = new AddNewDiveEntryViewModel(SelectedDiveEntry, isNewEntry: false, actionSource: ActionSource.ClickFromButtonCommand);
+
+                        var dialog = new AddNewDiveEntry
+                        {
+                            DataContext = vm
+                        };
+
+                        dialog.ShowDialog();
+                    }
+                },
+                param => SelectedDiveEntry != null);
+
+            DuplicateEntryCommand = new RelayCommand(
+                param =>
+                {
+
+                },
+                param => SelectedDiveEntry != null);
+
+            DeleteEntryCommand = new RelayCommand(
+                param =>
+                {
+                    if (MessageBox.Show(
+                        "Are you sure you want to delete the dive log entry?", 
+                        "Delete dive log", 
+                        MessageBoxButton.OKCancel,
+                        MessageBoxImage.Warning) == MessageBoxResult.OK)
+                    {
+                        DiveLogList.Remove(SelectedDiveEntry);
+                    }
+                },
+                param => SelectedDiveEntry != null);
         }
     }
 }

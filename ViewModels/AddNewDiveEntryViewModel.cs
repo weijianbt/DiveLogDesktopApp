@@ -14,14 +14,30 @@ namespace DiveLogApplication.ViewModels
     {
         private readonly DiveEntry _diveEntry;
         private bool _isEditable;
+        private bool _isNewEntry;
 
-        public AddNewDiveEntryViewModel() : this(null) { }
+        private string _location;
+        private string _diveSite;
+        private DateTime _startTime;
+        private DateTime _endTime;
+        private double _duration;
+        private double _maxDepth;
+        private double _averageDepth;
 
-        public AddNewDiveEntryViewModel(DiveEntry diveEntry)
+        public AddNewDiveEntryViewModel() : this(null, true, ActionSource.DoubleClickFromList) { }
+
+        public AddNewDiveEntryViewModel(DiveEntry diveEntry, bool isNewEntry = false, ActionSource actionSource = ActionSource.DoubleClickFromList)
         {
             _diveEntry = diveEntry ?? new DiveEntry();
-            IsEditable = false;
+            _isNewEntry = isNewEntry;
+            IsEditable = !isNewEntry && (actionSource != ActionSource.DoubleClickFromList);
+
             WireCommands();
+
+            if (!_isNewEntry) 
+            { 
+                PopulateExistingFields(_diveEntry); 
+            }
         }
 
         public bool IsEditable
@@ -36,70 +52,70 @@ namespace DiveLogApplication.ViewModels
 
         public string Location
         {
-            get => _diveEntry.Location;
+            get => _location;
             set
             {
-                _diveEntry.Location = value;
+                _location = value;
                 OnPropertyChanged();
             }
         }
 
         public string DiveSite
         {
-            get => _diveEntry.DiveSite;
+            get => _diveSite;
             set
             {
-                _diveEntry.DiveSite = value;
+                _diveSite = value;
                 OnPropertyChanged();
             }
         }
 
         public DateTime StartTime
         {
-            get => _diveEntry.StartTime;
+            get => _startTime;
             set
             {
-                _diveEntry.StartTime = value;
+                _startTime = value;
                 OnPropertyChanged();
             }
         }
 
         public DateTime EndTime
         {
-            get => _diveEntry.EndTime;
+            get => _endTime;
             set
             {
-                _diveEntry.EndTime = value;
+                _endTime = value;
                 OnPropertyChanged();
             }
         }
 
         public double Duration
         {
-            get => _diveEntry.Duration;
+            get => _duration;
             set
             {
-                _diveEntry.Duration = value;
+                _duration = value;
                 OnPropertyChanged();
             }
         }
 
         public double MaxDepth
         {
-            get => _diveEntry.MaxDepth;
+            get => _maxDepth;
             set
             {
-                _diveEntry.MaxDepth = value;
+                _maxDepth = value;
                 OnPropertyChanged();
             }
         }
 
         public double AverageDepth
         {
-            get => _diveEntry.AverageDepth;
+            get => _averageDepth;
             set
             {
-                _diveEntry.AverageDepth = value;
+                _averageDepth = value;
                 OnPropertyChanged();
             }
         }
@@ -135,6 +151,17 @@ namespace DiveLogApplication.ViewModels
                 },
                 param => true);
 
+        }
+
+        private void PopulateExistingFields(DiveEntry diveEntry)
+        {
+            DiveSite = diveEntry.DiveSite;
+            Location = diveEntry.Location;
+            Duration = diveEntry.Duration;
+            MaxDepth = diveEntry.MaxDepth;
+            AverageDepth = diveEntry.AverageDepth;
+            StartTime = diveEntry.StartTime;
+            EndTime = diveEntry.EndTime;
         }
     }
 }

@@ -20,8 +20,8 @@ namespace DiveLogApplication.Views
                 sender is ListBox lb &&
                 lb.SelectedValue is DiveEntry selectedItem)
             {
-                vm.OpenDetailsCommand.Execute(selectedItem);
+                vm.ViewEntryCommand.Execute(selectedItem);
             }
-        }
+        }  
     }
 }
