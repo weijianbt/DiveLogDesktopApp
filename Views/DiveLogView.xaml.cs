@@ -22,6 +22,6 @@ namespace DiveLogApplication.Views
             {
                 vm.ViewEntryCommand.Execute(selectedItem);
             }
-        }  
+        }
     }
 }

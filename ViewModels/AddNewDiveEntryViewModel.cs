@@ -1,12 +1,7 @@
 ﻿using DiveLogApplication.Core;
 using DiveLogApplication.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 
 namespace DiveLogApplication.ViewModels
 {
@@ -14,7 +9,6 @@ namespace DiveLogApplication.ViewModels
     {
         private readonly DiveEntry _diveEntry;
         private bool _isEditable;
-        private bool _isNewEntry;
 
         private string _location;
         private string _diveSite;
@@ -26,17 +20,16 @@ namespace DiveLogApplication.ViewModels
 
         public AddNewDiveEntryViewModel() : this(null, true, ActionSource.DoubleClickFromList) { }
 
-        public AddNewDiveEntryViewModel(DiveEntry diveEntry, bool isNewEntry = false, ActionSource actionSource = ActionSource.DoubleClickFromList)
+        public AddNewDiveEntryViewModel(DiveEntry diveEntry, bool isPopulatingFromExisting = true, ActionSource actionSource = ActionSource.DoubleClickFromList, bool isNewEntry = false)
         {
             _diveEntry = diveEntry ?? new DiveEntry();
-            _isNewEntry = isNewEntry;
-            IsEditable = !isNewEntry && (actionSource != ActionSource.DoubleClickFromList);
+            IsEditable = (isPopulatingFromExisting && (actionSource != ActionSource.DoubleClickFromList)) || isNewEntry;
 
             WireCommands();
 
-            if (!_isNewEntry) 
-            { 
-                PopulateExistingFields(_diveEntry); 
+            if (isPopulatingFromExisting)
+            {
+                PopulateExistingFields(_diveEntry);
             }
         }
 

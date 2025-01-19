@@ -2,11 +2,8 @@
 using DiveLogApplication.Models;
 using DiveLogApplication.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Windows;
-//using System.Windows.Forms;
 
 namespace DiveLogApplication.ViewModels
 {
@@ -156,7 +153,7 @@ namespace DiveLogApplication.ViewModels
                 {
                     if (param is DiveEntry selectedDiveEntry)
                     {
-                        var vm = new AddNewDiveEntryViewModel(selectedDiveEntry, isNewEntry:false, actionSource: ActionSource.DoubleClickFromList);
+                        var vm = new AddNewDiveEntryViewModel(selectedDiveEntry, isPopulatingFromExisting: true, actionSource: ActionSource.DoubleClickFromList);
 
                         var dialog = new AddNewDiveEntry
                         {
@@ -171,7 +168,7 @@ namespace DiveLogApplication.ViewModels
             NewEntryCommand = new RelayCommand(
                 param =>
                 {
-                    var vm = new AddNewDiveEntryViewModel(new DiveEntry(), isNewEntry:true, actionSource: ActionSource.ClickFromButtonCommand);
+                    var vm = new AddNewDiveEntryViewModel(new DiveEntry(), isPopulatingFromExisting: false, actionSource: ActionSource.ClickFromButtonCommand, isNewEntry: true);
                     var dialog = new AddNewDiveEntry
                     {
                         DataContext = vm
@@ -185,7 +182,7 @@ namespace DiveLogApplication.ViewModels
                 {
                     if (SelectedDiveEntry != null)
                     {
-                        var vm = new AddNewDiveEntryViewModel(SelectedDiveEntry, isNewEntry: false, actionSource: ActionSource.ClickFromButtonCommand);
+                        var vm = new AddNewDiveEntryViewModel(SelectedDiveEntry, isPopulatingFromExisting: true, actionSource: ActionSource.ClickFromButtonCommand);
 
                         var dialog = new AddNewDiveEntry
                         {
@@ -200,7 +197,16 @@ namespace DiveLogApplication.ViewModels
             DuplicateEntryCommand = new RelayCommand(
                 param =>
                 {
-
+                    if (SelectedDiveEntry != null)
+                    {
+                        DiveEntry newDiveEntry = SelectedDiveEntry.Clone();
+                        AddNewDiveEntryViewModel vm = new AddNewDiveEntryViewModel(newDiveEntry, isPopulatingFromExisting: true, actionSource: ActionSource.ClickFromButtonCommand);
+                        var dialog = new AddNewDiveEntry
+                        {
+                            DataContext = vm
+                        };
+                        dialog.Show();
+                    }
                 },
                 param => SelectedDiveEntry != null);
 
@@ -208,8 +214,8 @@ namespace DiveLogApplication.ViewModels
                 param =>
                 {
                     if (MessageBox.Show(
-                        "Are you sure you want to delete the dive log entry?", 
-                        "Delete dive log", 
+                        "Are you sure you want to delete the dive log entry?",
+                        "Delete dive log",
                         MessageBoxButton.OKCancel,
                         MessageBoxImage.Warning) == MessageBoxResult.OK)
                     {

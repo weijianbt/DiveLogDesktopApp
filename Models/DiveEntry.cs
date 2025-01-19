@@ -1,5 +1,4 @@
-﻿using DiveLogApplication.Core;
-using System;
+﻿using System;
 
 namespace DiveLogApplication.Models
 {
@@ -17,6 +16,13 @@ namespace DiveLogApplication.Models
         public double Duration { get; set; }
         public double MaxDepth { get; set; }
         public double AverageDepth { get; set; }
+
+        public DiveEntry Clone()
+        {
+            DiveEntry newDiveEntry = (DiveEntry)MemberwiseClone();
+            return newDiveEntry;
+
+        }
 
     }
 }
