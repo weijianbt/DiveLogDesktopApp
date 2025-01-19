@@ -4,6 +4,7 @@ using DiveLogApplication.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Reflection;
 using System.Windows;
 
 namespace DiveLogApplication.ViewModels
@@ -181,8 +182,8 @@ namespace DiveLogApplication.ViewModels
                     };
 
                     dialog.ShowDialog();
-                    DiveLogList.Add(vm.DiveEntry); // refresh the UI
 
+                    UpdateUI(vm.DiveEntry, isNewEntry: true);
                 },
                 param => true);
 
@@ -191,6 +192,7 @@ namespace DiveLogApplication.ViewModels
                 {
                     if (SelectedDiveEntry != null)
                     {
+                        int index = DiveLogList.IndexOf(SelectedDiveEntry);
                         var vm = new AddNewDiveEntryViewModel(SelectedDiveEntry, isPopulatingFromExisting: true, actionSource: ActionSource.ClickFromButtonCommand);
 
                         var dialog = new AddNewDiveEntry
@@ -199,6 +201,7 @@ namespace DiveLogApplication.ViewModels
                         };
 
                         dialog.ShowDialog();
+                        UpdateUI(vm.DiveEntry, index: index, isNewEntry: false);
                     }
                 },
                 param => SelectedDiveEntry != null);
@@ -214,7 +217,8 @@ namespace DiveLogApplication.ViewModels
                         {
                             DataContext = vm
                         };
-                        dialog.Show();
+                        dialog.ShowDialog();
+                        UpdateUI(vm.DiveEntry, isNewEntry: true);
                     }
                 },
                 param => SelectedDiveEntry != null);
@@ -232,6 +236,19 @@ namespace DiveLogApplication.ViewModels
                     }
                 },
                 param => SelectedDiveEntry != null);
+        }
+
+        private void UpdateUI(DiveEntry diveEntry, int index = 0, bool isNewEntry = true)
+        {
+            if (!isNewEntry)
+            {
+                DiveLogList.RemoveAt(index);
+                DiveLogList.Insert(index, diveEntry);
+            }
+            else
+            {
+                DiveLogList.Add(diveEntry);
+            }
         }
     }
 }
