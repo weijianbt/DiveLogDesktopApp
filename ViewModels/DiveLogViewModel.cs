@@ -3,6 +3,7 @@ using DiveLogApplication.Models;
 using DiveLogApplication.Views;
 using System;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Windows;
 
 namespace DiveLogApplication.ViewModels
@@ -168,12 +169,20 @@ namespace DiveLogApplication.ViewModels
             NewEntryCommand = new RelayCommand(
                 param =>
                 {
-                    var vm = new AddNewDiveEntryViewModel(new DiveEntry(), isPopulatingFromExisting: false, actionSource: ActionSource.ClickFromButtonCommand, isNewEntry: true);
+                    var vm = new AddNewDiveEntryViewModel(
+                        new DiveEntry(), 
+                        isPopulatingFromExisting: false, 
+                        actionSource: ActionSource.ClickFromButtonCommand, 
+                        isNewEntry: true);
+
                     var dialog = new AddNewDiveEntry
                     {
                         DataContext = vm
                     };
+
                     dialog.ShowDialog();
+                    DiveLogList.Add(vm.DiveEntry); // refresh the UI
+
                 },
                 param => true);
 

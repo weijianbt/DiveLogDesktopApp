@@ -130,7 +130,19 @@ namespace DiveLogApplication.ViewModels
             SaveEntryCommand = new RelayCommand(
                 param =>
                 {
-                    // todo
+                    // Populate the _diveEntry fields
+                    _diveEntry.Location = Location;
+                    _diveEntry.DiveSite = DiveSite;
+                    _diveEntry.StartTime = StartTime;
+                    _diveEntry.EndTime = EndTime;
+                    _diveEntry.Duration = Duration;
+                    _diveEntry.MaxDepth = MaxDepth;
+                    _diveEntry.AverageDepth = AverageDepth;
+
+                    if (param is Window window)
+                    {
+                        window.Close();
+                    }
                 },
                 param => true);
 
