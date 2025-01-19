@@ -155,6 +155,7 @@ namespace DiveLogApplication.ViewModels
                 {
                     if (param is DiveEntry selectedDiveEntry)
                     {
+                        int index = DiveLogList.IndexOf(selectedDiveEntry);
                         var vm = new AddNewDiveEntryViewModel(selectedDiveEntry, isPopulatingFromExisting: true, actionSource: ActionSource.DoubleClickFromList);
 
                         var dialog = new AddNewDiveEntry
@@ -163,6 +164,7 @@ namespace DiveLogApplication.ViewModels
                         };
 
                         dialog.ShowDialog();
+                        UpdateUI(vm.DiveEntry, index: index, isNewEntry: false);
                     }
                 },
                 param => param is DiveEntry);
