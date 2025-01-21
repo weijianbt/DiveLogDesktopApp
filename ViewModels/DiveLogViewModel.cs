@@ -2,15 +2,18 @@
 using DiveLogApplication.Models;
 using DiveLogApplication.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Documents;
 
 namespace DiveLogApplication.ViewModels
 {
     public class DiveLogViewModel : ViewModel
     {
+        private uint _diveLogIndex;
         private string _diveSite;
         private string _location;
         private DateTime _startTime;
@@ -20,6 +23,7 @@ namespace DiveLogApplication.ViewModels
         private double _averageDepth;
         private ObservableCollection<DiveEntry> _diveLogList;
         private DiveEntry _selectedDiveEntry;
+        private List<uint> _diveLogIndexList = new List<uint>();
 
         public DiveLogViewModel()
         {
@@ -50,6 +54,16 @@ namespace DiveLogApplication.ViewModels
 
             WireCommands();
 
+        }
+
+        public uint DiveLogIndex
+        {
+            get => _diveLogIndex;
+            set
+            {
+                _diveLogIndex = value;
+                OnPropertyChanged();
+            }
         }
 
         public string DiveSite
@@ -250,6 +264,19 @@ namespace DiveLogApplication.ViewModels
             else
             {
                 DiveLogList.Add(diveEntry);
+            }
+        }
+
+        private void GetDiveLogIndexList()
+        {
+            if (DiveLogList.Count < 0)
+            {
+                return;
+            }
+
+            foreach (DiveEntry diveEntry in DiveLogList)
+            {
+                _diveLogIndexList.Add(diveEntry.DiveLogIndex);
             }
         }
     }

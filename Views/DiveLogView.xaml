@@ -3,7 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:DiveLogApplication" xmlns:core="clr-namespace:DiveLogApplication.Core" d:DataContext="{d:DesignInstance vm:DiveLogViewModel}"
+      xmlns:local="clr-namespace:DiveLogApplication" xmlns:core="clr-namespace:DiveLogApplication.Core" 
+      d:DataContext="{d:DesignInstance vm:DiveLogViewModel}"
       xmlns:vm="clr-namespace:DiveLogApplication.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -31,53 +32,69 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="DarkGray" BorderThickness="1">
+
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
 
-                            <Grid.Resources>
-                                <Style TargetType="Label">
-                                    <Setter Property="HorizontalAlignment" Value="Left"/>
-                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                                </Style>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Left"/>
-                                    <Setter Property="VerticalAlignment" Value="Center"/>
-                                </Style>
-                            </Grid.Resources>
+                            <Grid Grid.Column="0">
+                                <Border CornerRadius="10" BorderBrush="LightBlue" BorderThickness="1" Margin="5">
+                                    <Label Content="{Binding DiveLogIndex}" Width="Auto" Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30"/>
+                                </Border>
+                            </Grid>
+                            
+                            <Grid Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
 
-                            <Label Grid.Row="0" Grid.Column="0" Content="Dive Location: "/>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Location}"/>
+                                <Grid.Resources>
+                                    <Style TargetType="Label">
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                    </Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                    </Style>
+                                </Grid.Resources>
 
-                            <Label Grid.Row="1" Grid.Column="0" Content="Dive Site: "/>
-                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding DiveSite}"/>
+                                <Label Grid.Row="0" Grid.Column="0" Content="Dive Location: "/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Location}"/>
 
-                            <Label Grid.Row="2" Grid.Column="0" Content="Start Time: "/>
-                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding StartTime}"/>
+                                <Label Grid.Row="1" Grid.Column="0" Content="Dive Site: "/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding DiveSite}"/>
 
-                            <Label Grid.Row="3" Grid.Column="0" Content="End Time: "/>
-                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding EndTime}"/>
+                                <Label Grid.Row="2" Grid.Column="0" Content="Start Time: "/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding StartTime}"/>
 
-                            <Label Grid.Row="4" Grid.Column="0" Content="Duration (mins): "/>
-                            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Duration}"/>
+                                <Label Grid.Row="3" Grid.Column="0" Content="End Time: "/>
+                                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding EndTime}"/>
 
-                            <Label Grid.Row="5" Grid.Column="0" Content="Max Depth (m): "/>
-                            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding MaxDepth}"/>
+                                <Label Grid.Row="4" Grid.Column="0" Content="Duration (mins): "/>
+                                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Duration}"/>
 
-                            <Label Grid.Row="6" Grid.Column="0" Content="Average Depth (m): "/>
-                            <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding AverageDepth}"/>
+                                <Label Grid.Row="5" Grid.Column="0" Content="Max Depth (m): "/>
+                                <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding MaxDepth}"/>
+
+                                <Label Grid.Row="6" Grid.Column="0" Content="Average Depth (m): "/>
+                                <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding AverageDepth}"/>
+                            </Grid>
                         </Grid>
+                        
+                        
                     </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>

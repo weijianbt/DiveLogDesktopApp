@@ -9,6 +9,7 @@ namespace DiveLogApplication.Models
 
         }
 
+        public uint DiveLogIndex { get; set; }
         public string Location { get; set; }
         public string DiveSite { get; set; }
         public DateTime StartTime { get; set; }

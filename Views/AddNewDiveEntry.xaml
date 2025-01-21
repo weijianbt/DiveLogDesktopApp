@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:DiveLogApplication.Views"
         xmlns:vm="clr-namespace:DiveLogApplication.ViewModels"
         mc:Ignorable="d"
-        Title="Add/Edit New Dive Entry" Height="300" Width="450">
+        Title="Add/Edit New Dive Entry"
+        SizeToContent="Height"
+        Width="450">
     <Window.DataContext>
         <vm:AddNewDiveEntryViewModel/>
     </Window.DataContext>
@@ -30,6 +32,7 @@
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
 
                 <Grid.Resources>
@@ -43,26 +46,29 @@
                     </Style>
                 </Grid.Resources>
 
-                <Label Grid.Row="0" Grid.Column="0" Content="Location: "/>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Location}"/>
+                <Label Grid.Row="0" Grid.Column="0" Content="Entry number: "/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DiveLogIndex}"/>
 
-                <Label Grid.Row="1" Grid.Column="0" Content="Dive Site: "/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DiveSite}"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="Location: "/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Location}"/>
 
-                <Label Grid.Row="2" Grid.Column="0" Content="Start Time: "/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding StartTime}"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="Dive Site: "/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DiveSite}"/>
 
-                <Label Grid.Row="3" Grid.Column="0" Content="End Time: "/>
-                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding EndTime}"/>
+                <Label Grid.Row="3" Grid.Column="0" Content="Start Time: "/>
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding StartTime}"/>
 
-                <Label Grid.Row="4" Grid.Column="0" Content="Duration: "/>
-                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Duration}"/>
+                <Label Grid.Row="4" Grid.Column="0" Content="End Time: "/>
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding EndTime}"/>
 
-                <Label Grid.Row="5" Grid.Column="0" Content="Max Depth (m): "/>
-                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding MaxDepth}"/>
+                <Label Grid.Row="5" Grid.Column="0" Content="Duration: "/>
+                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Duration}"/>
 
-                <Label Grid.Row="6" Grid.Column="0" Content="Average Depth (m): "/>
-                <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding AverageDepth}"/>
+                <Label Grid.Row="6" Grid.Column="0" Content="Max Depth (m): "/>
+                <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding MaxDepth}"/>
+
+                <Label Grid.Row="7" Grid.Column="0" Content="Average Depth (m): "/>
+                <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding AverageDepth}"/>
 
             </Grid>
 

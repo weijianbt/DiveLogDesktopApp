@@ -10,6 +10,7 @@ namespace DiveLogApplication.ViewModels
         private readonly DiveEntry _diveEntry;
         private bool _isEditable;
 
+        private uint _diveLogIndex;
         private string _location;
         private string _diveSite;
         private DateTime _startTime;
@@ -39,6 +40,16 @@ namespace DiveLogApplication.ViewModels
             set
             {
                 _isEditable = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public uint DiveLogIndex
+        {
+            get => _diveLogIndex;
+            set
+            {
+                _diveLogIndex = value;
                 OnPropertyChanged();
             }
         }
@@ -131,6 +142,7 @@ namespace DiveLogApplication.ViewModels
                 param =>
                 {
                     // Populate the _diveEntry fields
+                    _diveEntry.DiveLogIndex = DiveLogIndex;
                     _diveEntry.Location = Location;
                     _diveEntry.DiveSite = DiveSite;
                     _diveEntry.StartTime = StartTime;
@@ -160,6 +172,7 @@ namespace DiveLogApplication.ViewModels
 
         private void PopulateExistingFields(DiveEntry diveEntry)
         {
+            DiveLogIndex = diveEntry.DiveLogIndex;
             DiveSite = diveEntry.DiveSite;
             Location = diveEntry.Location;
             Duration = diveEntry.Duration;
