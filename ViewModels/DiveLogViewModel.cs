@@ -197,9 +197,11 @@ namespace DiveLogApplication.ViewModels
                         DataContext = vm
                     };
 
-                    dialog.ShowDialog();
+                    if(dialog.ShowDialog() == true)
+                    {
+                        UpdateUI(vm.DiveEntry, isNewEntry: true);
+                    }
 
-                    UpdateUI(vm.DiveEntry, isNewEntry: true);
                 },
                 param => true);
 

@@ -153,6 +153,7 @@ namespace DiveLogApplication.ViewModels
 
                     if (param is Window window)
                     {
+                        window.DialogResult = true;
                         window.Close();
                     }
                 },
