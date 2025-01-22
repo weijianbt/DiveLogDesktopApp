@@ -19,6 +19,8 @@ namespace DiveLogApplication.ViewModels
         private double _maxDepth;
         private double _averageDepth;
 
+        private DiveLogManager _diveLogManager = new DiveLogManager();
+
         public AddNewDiveEntryViewModel() : this(null, true, ActionSource.DoubleClickFromList) { }
 
         public AddNewDiveEntryViewModel(DiveEntry diveEntry, bool isPopulatingFromExisting = true, ActionSource actionSource = ActionSource.DoubleClickFromList, bool isNewEntry = false)
@@ -151,7 +153,9 @@ namespace DiveLogApplication.ViewModels
                     _diveEntry.MaxDepth = MaxDepth;
                     _diveEntry.AverageDepth = AverageDepth;
 
-                    if (param is Window window)
+                    bool canClose = _diveLogManager.WriteToFile(DiveEntry);
+
+                    if (param is Window window && canClose)
                     {
                         window.DialogResult = true;
                         window.Close();
