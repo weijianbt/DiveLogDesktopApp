@@ -24,33 +24,36 @@ namespace DiveLogApplication.ViewModels
         private ObservableCollection<DiveEntry> _diveLogList;
         private DiveEntry _selectedDiveEntry;
         private List<uint> _diveLogIndexList = new List<uint>();
+        private DiveLogManager _diveLogManager;
 
         public DiveLogViewModel()
         {
-            DiveLogList = new ObservableCollection<DiveEntry>()
-            {
-                new DiveEntry()
-                {
-                    DiveSite = "Tioman",
-                    Location = "Tioman Mersing",
-                    StartTime = DateTime.Now,
-                    EndTime = DateTime.Now,
-                    Duration = 12,
-                    MaxDepth = 11.1,
-                    AverageDepth = 9
-                },
+            //DiveLogList = new ObservableCollection<DiveEntry>()
+            //{
+            //    new DiveEntry()
+            //    {
+            //        DiveSite = "Tioman",
+            //        Location = "Tioman Mersing",
+            //        StartTime = DateTime.Now,
+            //        EndTime = DateTime.Now,
+            //        Duration = 12,
+            //        MaxDepth = 11.1,
+            //        AverageDepth = 9
+            //    },
 
-                new DiveEntry()
-                {
-                    DiveSite = "Tenggol",
-                    Location = "Terrengganu",
-                    StartTime = DateTime.Now,
-                    EndTime = DateTime.Now,
-                    Duration = 45,
-                    MaxDepth = 18,
-                    AverageDepth = 10
-                }
-            };
+            //    new DiveEntry()
+            //    {
+            //        DiveSite = "Tenggol",
+            //        Location = "Terrengganu",
+            //        StartTime = DateTime.Now,
+            //        EndTime = DateTime.Now,
+            //        Duration = 45,
+            //        MaxDepth = 18,
+            //        AverageDepth = 10
+            //    }
+            //};
+
+            _diveLogManager = new DiveLogManager();
 
             WireCommands();
 
@@ -156,6 +159,7 @@ namespace DiveLogApplication.ViewModels
             }
         }
 
+        public RelayCommand LoadedCommand { get; set; }
         public RelayCommand ViewEntryCommand { get; set; }
         public RelayCommand NewEntryCommand { get; set; }
         public RelayCommand EditEntryCommand { get; set; }
@@ -164,6 +168,15 @@ namespace DiveLogApplication.ViewModels
 
         private void WireCommands()
         {
+            LoadedCommand = new RelayCommand(
+                param =>
+                {
+                    _diveLogManager.Load();
+
+                    DiveLogList = _diveLogManager.DiveLogList;
+                },
+                param => true);
+
             ViewEntryCommand = new RelayCommand(
                 param =>
                 {

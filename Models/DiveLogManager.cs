@@ -2,6 +2,7 @@
 using DiveLogApplication.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,12 +21,15 @@ namespace DiveLogApplication.Models
         private string _diveLogFileName;
         private XDocument _diveLogFile = new XDocument();
         private SettingsViewModel _settings;
+        private ObservableCollection<DiveEntry> _diveLogList;
 
         public DiveLogManager()
         {
             _settings = new SettingsViewModel();
             _diveLogDirectory = Path.Combine(_settings.DiveLicenseDirectory, "DiveLogEntry.xml");
         }
+
+        public ObservableCollection<DiveEntry> DiveLogList => _diveLogList;
 
         public bool WriteToFile(DiveEntry data)
         {
@@ -83,9 +87,65 @@ namespace DiveLogApplication.Models
 
         }
 
-        public void Load(DiveEntry diveEntry)
+        public void Load()
         {
+            if (!File.Exists(_diveLogDirectory))
+            {
+                MessageBox.Show(@"Dive log directory do not exists. Directory: {_diveLogDirectory}");
+                return;
+            }
 
+            _diveLogList = new ObservableCollection<DiveEntry>();
+            _diveLogFile = XDocument.Load(_diveLogDirectory);
+
+            var diveLogs = _diveLogFile.Root.Elements("DiveLog");
+
+            if (!diveLogs.Any())
+            {
+                return;
+            }
+
+
+            foreach (var diveLog in diveLogs)
+            {
+
+                DiveEntry newDiveEntry = new DiveEntry();
+
+                if (uint.TryParse(diveLog.Element(nameof(DiveEntry.DiveLogIndex))?.Value, out uint diveLogIndex))
+                {
+                    newDiveEntry.DiveLogIndex = diveLogIndex;
+                }
+
+                newDiveEntry.Location = diveLog.Element(nameof(DiveEntry.Location))?.Value;
+                newDiveEntry.DiveSite = diveLog.Element(nameof(DiveEntry.DiveSite))?.Value;
+
+                if (DateTime.TryParse(diveLog.Element(nameof(DiveEntry.StartTime))?.Value, out DateTime startTime))
+                {
+                    newDiveEntry.StartTime = startTime;
+                }
+
+                if(DateTime.TryParse(diveLog.Element(nameof(DiveEntry.EndTime))?.Value, out DateTime endTime))
+                {
+                    newDiveEntry.EndTime = endTime;
+                }
+                
+                if(double.TryParse(diveLog.Element(nameof(DiveEntry.Duration))?.Value, out double duration))
+                {
+                    newDiveEntry.Duration = duration;                    
+                }
+
+                if(double.TryParse(diveLog.Element(nameof(DiveEntry.MaxDepth))?.Value, out double maxDepth))
+                {
+                    newDiveEntry.MaxDepth = maxDepth;                    
+                }                
+                
+                if(double.TryParse(diveLog.Element(nameof(DiveEntry.AverageDepth))?.Value, out double averageDepth))
+                {
+                    newDiveEntry.AverageDepth = diveLogIndex;                    
+                }
+
+                _diveLogList.Add(newDiveEntry);
+            }
         }
 
         private void CreateFile()

@@ -23,5 +23,13 @@ namespace DiveLogApplication.Views
                 vm.ViewEntryCommand.Execute(selectedItem);
             }
         }
+
+        private void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (DataContext is DiveLogViewModel vm)
+            {
+                vm.LoadedCommand.Execute(null);
+            }
+        }
     }
 }
