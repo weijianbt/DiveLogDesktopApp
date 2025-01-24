@@ -8,8 +8,10 @@ namespace DiveLogApplication.ViewModels
     public class AddNewDiveEntryViewModel : ViewModel
     {
         private readonly DiveEntry _diveEntry;
+        private readonly bool _isNewEntry;
+        private readonly uint _originalDiveLogIndex;
+        
         private bool _isEditable;
-
         private uint _diveLogIndex;
         private string _location;
         private string _diveSite;
@@ -19,14 +21,16 @@ namespace DiveLogApplication.ViewModels
         private double _maxDepth;
         private double _averageDepth;
 
-        private DiveLogManager _diveLogManager = new DiveLogManager();
+        private readonly DiveLogManager _diveLogManager = new DiveLogManager();
 
         public AddNewDiveEntryViewModel() : this(null, true, ActionSource.DoubleClickFromList) { }
 
         public AddNewDiveEntryViewModel(DiveEntry diveEntry, bool isPopulatingFromExisting = true, ActionSource actionSource = ActionSource.DoubleClickFromList, bool isNewEntry = false)
         {
             _diveEntry = diveEntry ?? new DiveEntry();
-            IsEditable = (isPopulatingFromExisting && (actionSource != ActionSource.DoubleClickFromList)) || isNewEntry;
+            _isNewEntry = isNewEntry;
+            IsEditable = (isPopulatingFromExisting && (actionSource != ActionSource.DoubleClickFromList)) || _isNewEntry;
+            _originalDiveLogIndex = _diveEntry.DiveLogIndex;
 
             WireCommands();
 
@@ -138,7 +142,7 @@ namespace DiveLogApplication.ViewModels
                 {
                     IsEditable = true;
                 },
-                param => true);
+                param => !_isNewEntry);
 
             SaveEntryCommand = new RelayCommand(
                 param =>
@@ -153,6 +157,8 @@ namespace DiveLogApplication.ViewModels
                     _diveEntry.MaxDepth = MaxDepth;
                     _diveEntry.AverageDepth = AverageDepth;
 
+                    _diveLogManager.IsEdit = _isNewEntry == false;
+                    _diveLogManager.IsSameIndex = _originalDiveLogIndex == DiveLogIndex;
                     bool canClose = _diveLogManager.WriteToFile(DiveEntry);
 
                     if (param is Window window && canClose)

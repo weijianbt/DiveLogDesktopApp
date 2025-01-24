@@ -5,9 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Reflection;
+using System.Linq;
 using System.Windows;
-using System.Windows.Documents;
 
 namespace DiveLogApplication.ViewModels
 {
@@ -174,6 +173,7 @@ namespace DiveLogApplication.ViewModels
                     _diveLogManager.Load();
 
                     DiveLogList = _diveLogManager.DiveLogList;
+                    SortDiveEntriesDescending();
                 },
                 param => true);
 
@@ -200,9 +200,9 @@ namespace DiveLogApplication.ViewModels
                 param =>
                 {
                     var vm = new AddNewDiveEntryViewModel(
-                        new DiveEntry(), 
-                        isPopulatingFromExisting: false, 
-                        actionSource: ActionSource.ClickFromButtonCommand, 
+                        new DiveEntry(),
+                        isPopulatingFromExisting: false,
+                        actionSource: ActionSource.ClickFromButtonCommand,
                         isNewEntry: true);
 
                     var dialog = new AddNewDiveEntry
@@ -210,7 +210,7 @@ namespace DiveLogApplication.ViewModels
                         DataContext = vm
                     };
 
-                    if(dialog.ShowDialog() == true)
+                    if (dialog.ShowDialog() == true)
                     {
                         UpdateUI(vm.DiveEntry, isNewEntry: true);
                     }
@@ -243,7 +243,7 @@ namespace DiveLogApplication.ViewModels
                     if (SelectedDiveEntry != null)
                     {
                         DiveEntry newDiveEntry = SelectedDiveEntry.Clone();
-                        AddNewDiveEntryViewModel vm = new AddNewDiveEntryViewModel(newDiveEntry, isPopulatingFromExisting: true, actionSource: ActionSource.ClickFromButtonCommand);
+                        AddNewDiveEntryViewModel vm = new AddNewDiveEntryViewModel(newDiveEntry, isPopulatingFromExisting: true, actionSource: ActionSource.ClickFromButtonCommand, isNewEntry: true);
                         var dialog = new AddNewDiveEntry
                         {
                             DataContext = vm
@@ -279,6 +279,20 @@ namespace DiveLogApplication.ViewModels
             else
             {
                 DiveLogList.Add(diveEntry);
+            }
+
+            SortDiveEntriesDescending();
+
+        }
+
+        private void SortDiveEntriesDescending()
+        {
+            var sortedList = DiveLogList.OrderByDescending(o => o.DiveLogIndex).ToList();
+
+            DiveLogList.Clear();
+            foreach (var item in sortedList)
+            {
+                DiveLogList.Add(item);
             }
         }
 
