@@ -161,7 +161,7 @@ namespace DiveLogApplication.ViewModels
                         window.Close();
                     }
                 },
-                param => true);
+                param => IsEditable);
 
             CancelCommand = new RelayCommand(
                 param =>
