@@ -1,5 +1,6 @@
 ﻿using DiveLogApplication.Core;
 using DiveLogApplication.Models;
+using DiveLogApplication.Utilities;
 using DiveLogApplication.Views;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -14,11 +15,14 @@ namespace DiveLogApplication.ViewModels
         private ObservableCollection<DiveLicense> _diveLicenseList;
         private DiveLicense _selectedDiveLicense;
         private SettingsViewModel _settings;
+        private IniFile _iniFile;
 
         public UserProfileViewModel()
         {
             _settings = new SettingsViewModel();
             _diveLicenseManager = new DiveLicenseManager();
+            _iniFile = new IniFile();
+
             WireCommands();
 
             LoadLicenseCommand.Execute(null);
@@ -66,7 +70,7 @@ namespace DiveLogApplication.ViewModels
                 param =>
                 {
                     DiveLicenseList = _diveLicenseManager.LoadData();
-
+                    ProfilePicturePath = _iniFile.Read(nameof(ProfilePicturePath), ProfilePicturePath);
                 },
                 param => true
                 );
@@ -83,6 +87,7 @@ namespace DiveLogApplication.ViewModels
                     if (result == true)
                     {
                         ProfilePicturePath = fileDialog.FileName;
+                        _iniFile.Write(nameof(ProfilePicturePath), ProfilePicturePath);
                     }
                 },
                 param => true);

@@ -34,6 +34,8 @@ namespace DiveLogApplication.ViewModels
         public string DiveLogFullFilePath { get; set; }
 
         public string DiveLicenseFullFilePath { get; set; }
+        
+        public string ProfilePicturePath { get; set; }
 
         public string DiveLicenseDirectory
         {
