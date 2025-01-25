@@ -53,7 +53,7 @@ namespace DiveLogApplication.ViewModels
             //};
 
             _diveLogManager = new DiveLogManager();
-
+            DiveLogList = new ObservableCollection<DiveEntry>();
             WireCommands();
 
         }
@@ -172,8 +172,15 @@ namespace DiveLogApplication.ViewModels
                 {
                     _diveLogManager.Load();
 
-                    DiveLogList = _diveLogManager.DiveLogList;
-                    SortDiveEntriesDescending();
+                    if (_diveLogManager.DiveLogList != null)
+                    {
+                        DiveLogList = _diveLogManager.DiveLogList;
+                    }
+
+                    if (DiveLogList != null)
+                    {
+                        SortDiveEntriesDescending();
+                    }
                 },
                 param => true);
 

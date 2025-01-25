@@ -79,7 +79,6 @@ namespace DiveLogApplication.Models
         {
             if (!File.Exists(_diveLogDirectory))
             {
-                MessageBox.Show(@"Dive log directory do not exists. Directory: {_diveLogDirectory}");
                 return;
             }
 
