@@ -47,5 +47,13 @@ namespace DiveLogApplication.Utilities
         {
             return Read(Key, Section).Length > 0;
         }
+
+        public void MoveFile(string source, string destination)
+        {
+            if (File.Exists(source))
+            {
+                File.Move(source, destination);
+            }
+        }
     }
 }

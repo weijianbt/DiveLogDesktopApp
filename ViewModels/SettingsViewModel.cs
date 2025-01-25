@@ -10,22 +10,30 @@ namespace DiveLogApplication.ViewModels
     public class SettingsViewModel : ViewModel
     {
         private const string _general = "General";
-        private readonly string _diveLogSettingsFile = "DiveLogSettings.ini";
+        private const string _diveLogFileName = "DiveLog.xml";
+        private const string _diveLicenseFileName = "DiveLicense.xml";
+        private const string _diveLogSettingsFile = "DiveLogSettings.ini";
         private readonly string _defaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         private readonly string _diveLogSettingsFilePath;
         private string _diveLicenseDirectory;
         private string _diveLogDirectory;
         private readonly IniFile _iniFile;
 
+        private string _previousDiveLicenseDirectory;
+        private string _previousDiveLogDirectory;
+
         public SettingsViewModel()
         {
             // Default path for settings file is in user's document folder
             _diveLogSettingsFilePath = Path.Combine(_defaultDirectory, _diveLogSettingsFile);
             _iniFile = new IniFile(_diveLogSettingsFilePath);
+            LoadedCommand();
             WireCommands();
-            PopulateExistingItems();
-
         }
+
+        public string DiveLogFullFilePath { get; set; }
+
+        public string DiveLicenseFullFilePath { get; set; }
 
         public string DiveLicenseDirectory
         {
@@ -75,16 +83,45 @@ namespace DiveLogApplication.ViewModels
             SaveCommand = new RelayCommand(
                 param =>
                 {
+                    if (_previousDiveLogDirectory != DiveLogDirectory)
+                    {
+                        _iniFile.MoveFile(Path.Combine(_previousDiveLogDirectory, _diveLogFileName), Path.Combine(DiveLogDirectory, _diveLogFileName));
+                    }
+
+                    if (_previousDiveLicenseDirectory != DiveLicenseDirectory)
+                    {
+                        _iniFile.MoveFile(Path.Combine(_previousDiveLicenseDirectory, _diveLicenseFileName), Path.Combine(DiveLicenseDirectory, _diveLicenseFileName));
+                    }
+
                     _iniFile.Write(nameof(DiveLicenseDirectory), DiveLicenseDirectory, _general);
                     _iniFile.Write(nameof(DiveLogDirectory), DiveLogDirectory, _general);
                 },
                 param => true);
         }
 
+        private void LoadedCommand()
+        {
+            PopulateExistingItems();
+            RecordPreviousValues();
+            GenerateFullFilePath();
+        }
+
+        private void GenerateFullFilePath()
+        {
+            DiveLicenseFullFilePath = Path.Combine(DiveLicenseDirectory, _diveLicenseFileName);
+            DiveLogFullFilePath = Path.Combine(DiveLogDirectory, _diveLogFileName);
+        }
+
         private void PopulateExistingItems()
         {
             DiveLicenseDirectory = _iniFile.Read(nameof(DiveLicenseDirectory), _general);
             DiveLogDirectory = _iniFile.Read(nameof(DiveLogDirectory), _general);
+        }
+
+        private void RecordPreviousValues()
+        {
+            _previousDiveLicenseDirectory = DiveLicenseDirectory;
+            _previousDiveLogDirectory = DiveLogDirectory;
         }
     }
 }

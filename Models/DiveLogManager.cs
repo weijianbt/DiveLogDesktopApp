@@ -19,7 +19,7 @@ namespace DiveLogApplication.Models
         public DiveLogManager()
         {
             _settings = new SettingsViewModel();
-            _diveLogDirectory = Path.Combine(_settings.DiveLicenseDirectory, "DiveLogEntry.xml");
+            _diveLogDirectory = _settings.DiveLogFullFilePath;
         }
 
         public ObservableCollection<DiveEntry> DiveLogList => _diveLogList;

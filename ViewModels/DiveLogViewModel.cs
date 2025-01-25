@@ -172,10 +172,7 @@ namespace DiveLogApplication.ViewModels
                 {
                     _diveLogManager.Load();
 
-                    if (_diveLogManager.DiveLogList != null)
-                    {
-                        DiveLogList = _diveLogManager.DiveLogList;
-                    }
+                    DiveLogList = _diveLogManager.DiveLogList ?? DiveLogList;
 
                     if (DiveLogList != null)
                     {

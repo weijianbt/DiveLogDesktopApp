@@ -22,7 +22,7 @@ namespace DiveLogApplication.Models
         public DiveLicenseManager()
         {
             _settings = new SettingsViewModel();
-            _licenseDirectory = Path.Combine(_settings.DiveLicenseDirectory, "DiveLicense.xml");
+            _licenseDirectory = _settings.DiveLicenseFullFilePath;
         }
 
         public void WriteToFile(DiveLicense data)
