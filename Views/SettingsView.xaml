@@ -32,18 +32,31 @@
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Dive License Directory"/>
-                <Grid Grid.Row="0" Grid.Column="1">
+                <Grid Grid.Row="0" Grid.Column="1" Margin="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.8*"/>
                             <ColumnDefinition Width="0.2*"/>
                         </Grid.ColumnDefinitions>
                         <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding DiveLicenseDirectory}" VerticalContentAlignment="Center"/>
-                        <Button Grid.Row="0" Grid.Column="1" Content="..." Command="{Binding SelectDirectoryCommand}"/>
+                        <Button Grid.Row="0" Grid.Column="1" Content="..." Command="{Binding SelectDirectoryCommand}" CommandParameter="DiveLicenseDirectory"/>                        
+                    </Grid>
+                </Grid>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Dive Log Directory"/>
+                <Grid Grid.Row="1" Grid.Column="1" Margin="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.8*"/>
+                            <ColumnDefinition Width="0.2*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding DiveLogDirectory}" VerticalContentAlignment="Center"/>
+                        <Button Grid.Row="0" Grid.Column="1" Content="..." Command="{Binding SelectDirectoryCommand}" CommandParameter="DiveLogDirectory"/>
                     </Grid>
                 </Grid>
             </Grid>

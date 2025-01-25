@@ -1,6 +1,7 @@
 ﻿using DiveLogApplication.Core;
 using DiveLogApplication.Utilities;
 using System;
+using System.CodeDom;
 using System.IO;
 using System.Windows.Forms;
 
@@ -13,6 +14,7 @@ namespace DiveLogApplication.ViewModels
         private readonly string _defaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         private readonly string _diveLogSettingsFilePath;
         private string _diveLicenseDirectory;
+        private string _diveLogDirectory;
         private readonly IniFile _iniFile;
 
         public SettingsViewModel()
@@ -35,6 +37,16 @@ namespace DiveLogApplication.ViewModels
             }
         }
 
+        public string DiveLogDirectory
+        {
+            get => _diveLogDirectory;
+            set
+            {
+                _diveLogDirectory = value;
+                OnPropertyChanged();
+            }
+        }
+
         public RelayCommand SaveCommand { get; private set; }
         public RelayCommand SelectDirectoryCommand { get; private set; }
 
@@ -43,16 +55,20 @@ namespace DiveLogApplication.ViewModels
             SelectDirectoryCommand = new RelayCommand(
                 param =>
                 {
-                    using (var folderPicker = new FolderBrowserDialog())
+                    if (param is string propertyName)
                     {
-                        folderPicker.Description = "Select a folder";
-                        folderPicker.ShowNewFolderButton = true;
-
-                        if (folderPicker.ShowDialog() == DialogResult.OK)
+                        using (var folderPicker = new FolderBrowserDialog())
                         {
-                            DiveLicenseDirectory = folderPicker.SelectedPath;
-                        }
-                    };
+                            folderPicker.Description = "Select a folder";
+                            folderPicker.ShowNewFolderButton = true;
+
+                            if (folderPicker.ShowDialog() == DialogResult.OK)
+                            {
+                                var property = GetType().GetProperty(propertyName);
+                                property.SetValue(this, folderPicker.SelectedPath);
+                            }
+                        };
+                    }
                 },
                 param => true);
 
@@ -60,6 +76,7 @@ namespace DiveLogApplication.ViewModels
                 param =>
                 {
                     _iniFile.Write(nameof(DiveLicenseDirectory), DiveLicenseDirectory, _general);
+                    _iniFile.Write(nameof(DiveLogDirectory), DiveLogDirectory, _general);
                 },
                 param => true);
         }
@@ -67,6 +84,7 @@ namespace DiveLogApplication.ViewModels
         private void PopulateExistingItems()
         {
             DiveLicenseDirectory = _iniFile.Read(nameof(DiveLicenseDirectory), _general);
+            DiveLogDirectory = _iniFile.Read(nameof(DiveLogDirectory), _general);
         }
     }
 }
