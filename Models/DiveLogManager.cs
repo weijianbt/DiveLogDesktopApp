@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Markup;
 using System.Xml.Linq;
 
 namespace DiveLogApplication.Models
@@ -72,6 +73,25 @@ namespace DiveLogApplication.Models
 
         public void Delete(DiveEntry diveEntry)
         {
+            if (!File.Exists(_diveLogDirectory))
+            {
+                return;
+            }
+
+            _diveLogList = new ObservableCollection<DiveEntry>();
+            _diveLogFile = XDocument.Load(_diveLogDirectory);
+
+            var diveLogs = _diveLogFile.Root.Elements("DiveLog");
+
+            if (!diveLogs.Any())
+            {
+                return;
+            }
+
+            string idToFind = diveEntry.DiveLogIndex.ToString();
+
+            _diveLogFile.Descendants("DiveLog").FirstOrDefault(d => (string)d.Element("DiveLogIndex") == idToFind).Remove();
+            _diveLogFile.Save(_diveLogDirectory);
 
         }
 
@@ -91,7 +111,6 @@ namespace DiveLogApplication.Models
             {
                 return;
             }
-
 
             foreach (var diveLog in diveLogs)
             {

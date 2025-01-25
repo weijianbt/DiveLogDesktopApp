@@ -267,6 +267,7 @@ namespace DiveLogApplication.ViewModels
                         MessageBoxButton.OKCancel,
                         MessageBoxImage.Warning) == MessageBoxResult.OK)
                     {
+                        _diveLogManager.Delete(SelectedDiveEntry);
                         DiveLogList.Remove(SelectedDiveEntry);
                     }
                 },
