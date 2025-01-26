@@ -31,7 +31,7 @@ namespace DiveLogApplication.ViewModels
             _isNewEntry = isNewEntry;
             IsEditable = (isPopulatingFromExisting && (actionSource != ActionSource.DoubleClickFromList)) || _isNewEntry;
             _originalDiveLogIndex = _diveEntry.DiveLogIndex;
-
+            EntryType = _isNewEntry ? "Add New Entry" : "Edit Entry";
             WireCommands();
 
             if (isPopulatingFromExisting)
@@ -39,6 +39,8 @@ namespace DiveLogApplication.ViewModels
                 PopulateExistingFields(_diveEntry);
             }
         }
+
+        public string EntryType { get; set; }
 
         public bool IsEditable
         {

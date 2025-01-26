@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DiveLogApplication.Views"
         xmlns:vm="clr-namespace:DiveLogApplication.ViewModels"
         mc:Ignorable="d"
-        Title="Add/Edit New Dive Entry"
+        Title="{Binding EntryType}"
         SizeToContent="Height"
         Width="450">
     <Window.DataContext>
