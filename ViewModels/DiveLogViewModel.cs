@@ -171,13 +171,7 @@ namespace DiveLogApplication.ViewModels
                 param =>
                 {
                     _diveLogManager.Load();
-
                     DiveLogList = _diveLogManager.DiveLogList ?? DiveLogList;
-
-                    if (DiveLogList != null)
-                    {
-                        SortDiveEntriesDescending();
-                    }
                 },
                 param => true);
 
@@ -287,7 +281,6 @@ namespace DiveLogApplication.ViewModels
             }
 
             SortDiveEntriesDescending();
-
         }
 
         private void SortDiveEntriesDescending()

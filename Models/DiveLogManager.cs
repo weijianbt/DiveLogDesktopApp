@@ -66,6 +66,7 @@ namespace DiveLogApplication.Models
                 _diveLogFile.Root.Add(newElement);
             }
 
+            _diveLogFile = SortElements(_diveLogFile);
             _diveLogFile.Save(_diveLogDirectory);
 
             return true;
@@ -152,6 +153,8 @@ namespace DiveLogApplication.Models
 
                 _diveLogList.Add(newDiveEntry);
             }
+
+            _diveLogList.OrderByDescending(p => p.DiveLogIndex);
         }
 
         private void CreateFile()
@@ -160,5 +163,16 @@ namespace DiveLogApplication.Models
             _diveLogFile.Save(_diveLogDirectory);
         }
 
+        private XDocument SortElements(XDocument doc)
+        {
+            var sortedElements = doc.Root.Elements("DiveLog")
+                                            .OrderByDescending(e => (int)e.Element("DiveLogIndex"))
+                                            .ToList();
+
+            doc.Root.RemoveNodes();
+            doc.Root.Add(sortedElements);
+
+            return doc;
+        }
     }
 }
