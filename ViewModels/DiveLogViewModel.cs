@@ -255,6 +255,8 @@ namespace DiveLogApplication.ViewModels
             DeleteEntryCommand = new RelayCommand(
                 param =>
                 {
+                    // test commit
+
                     if (MessageBox.Show(
                         "Are you sure you want to delete the dive log entry?",
                         "Delete dive log",
