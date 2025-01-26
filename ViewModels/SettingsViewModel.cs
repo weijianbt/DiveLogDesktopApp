@@ -14,7 +14,7 @@ namespace DiveLogApplication.ViewModels
         private const string _diveLicenseFileName = "DiveLicense.xml";
         private const string _diveLogSettingsFile = "DiveLogSettings.ini";
         private readonly string _defaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        private readonly string _diveLogSettingsFilePath;
+        private string _diveLogSettingsFilePath;
         private string _diveLicenseDirectory;
         private string _diveLogDirectory;
         private readonly IniFile _iniFile;
@@ -25,7 +25,7 @@ namespace DiveLogApplication.ViewModels
         public SettingsViewModel()
         {
             // Default path for settings file is in user's document folder
-            _diveLogSettingsFilePath = Path.Combine(_defaultDirectory, _diveLogSettingsFile);
+            DiveLogSettingsFilePath = Path.Combine(_defaultDirectory, _diveLogSettingsFile);
             _iniFile = new IniFile(_diveLogSettingsFilePath);
             LoadedCommand();
             WireCommands();
@@ -36,6 +36,12 @@ namespace DiveLogApplication.ViewModels
         public string DiveLicenseFullFilePath { get; set; }
         
         public string ProfilePicturePath { get; set; }
+
+        public string DiveLogSettingsFilePath
+        {
+            get { return _diveLogSettingsFilePath; }
+            set { _diveLogSettingsFilePath = value; }
+        }
 
         public string DiveLicenseDirectory
         {

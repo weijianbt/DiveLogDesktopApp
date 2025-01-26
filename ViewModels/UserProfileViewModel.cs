@@ -21,7 +21,7 @@ namespace DiveLogApplication.ViewModels
         {
             _settings = new SettingsViewModel();
             _diveLicenseManager = new DiveLicenseManager();
-            _iniFile = new IniFile();
+            _iniFile = new IniFile(_settings.DiveLogSettingsFilePath);
 
             WireCommands();
 
@@ -70,7 +70,7 @@ namespace DiveLogApplication.ViewModels
                 param =>
                 {
                     DiveLicenseList = _diveLicenseManager.LoadData();
-                    ProfilePicturePath = _iniFile.Read(nameof(ProfilePicturePath), ProfilePicturePath);
+                    ProfilePicturePath = _iniFile.Read(nameof(ProfilePicturePath), "General");
                 },
                 param => true
                 );
@@ -87,7 +87,7 @@ namespace DiveLogApplication.ViewModels
                     if (result == true)
                     {
                         ProfilePicturePath = fileDialog.FileName;
-                        _iniFile.Write(nameof(ProfilePicturePath), ProfilePicturePath);
+                        _iniFile.Write(nameof(ProfilePicturePath), ProfilePicturePath, "General");
                     }
                 },
                 param => true);
