@@ -41,15 +41,6 @@ namespace DiveLogApplication.Utilities
             var mainWindowWidth = parentWindow.Width;
             var mainWindowHeight = parentWindow.Height;
 
-            // If the window is maximized, adjust its position to use the working area
-            if (parentWindow.WindowState == WindowState.Maximized)
-            {
-                mainWindowLeft = workingArea.Left;
-                mainWindowTop = workingArea.Top;
-                mainWindowWidth = workingArea.Width;
-                mainWindowHeight = workingArea.Height;
-            }
-
             // Center the dialog relative to the parent window
             dialog.Left = mainWindowLeft + (mainWindowWidth - dialog.Width) / 2;
             dialog.Top = mainWindowTop + (mainWindowHeight - dialog.Height) / 2;
