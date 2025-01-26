@@ -1,4 +1,5 @@
 ﻿using DiveLogApplication.Core;
+using DiveLogApplication.Views;
 using System;
 using System.Windows.Controls;
 
@@ -7,6 +8,11 @@ namespace DiveLogApplication.ViewModels
     public class MainWindowViewModel : ViewModel
     {
         private Frame _selectedContent;
+        private MainPageView _mainPageView;
+        private UserProfileView _userProfileView;
+        private DiveLogView _diveLogView;
+        private SettingsView _settingsView;
+
 
         public MainWindowViewModel()
         {
@@ -34,7 +40,12 @@ namespace DiveLogApplication.ViewModels
             NavigateMainPageCommand = new RelayCommand(
                 param =>
                 {
-                    SelectedContent.Navigate(new Uri("Views/MainPageView.xaml", UriKind.Relative));
+                    if (_mainPageView == null)
+                    {
+                        _mainPageView = new MainPageView();
+                    }
+
+                    SelectedContent.Content = _mainPageView;
                 },
                 param => true
                 );
@@ -42,15 +53,12 @@ namespace DiveLogApplication.ViewModels
             NavigateUserProfileCommand = new RelayCommand(
                 param =>
                 {
-                    //var userProfileView = new UserProfileView();
-                    //var userProfileViewModel = new UserProfileViewModel
-                    //{
-                    //    Name = "Yee Cheng"
-                    //};
+                    if (_userProfileView == null)
+                    {
+                        _userProfileView = new UserProfileView();
+                    }
 
-                    //userProfileView.DataContext = userProfileViewModel;
-                    //SelectedContent.Navigate(userProfileView);
-                    SelectedContent.Navigate(new Uri("Views/UserProfileView.xaml", UriKind.Relative));
+                    SelectedContent.Content = _userProfileView;
                 },
                 param => true
                 );
@@ -58,7 +66,12 @@ namespace DiveLogApplication.ViewModels
             NavigateDiveLogCommand = new RelayCommand(
                 param =>
                 {
-                    SelectedContent.Navigate(new Uri("Views/DiveLogView.xaml", UriKind.Relative));
+                    if (_diveLogView == null)
+                    {
+                        _diveLogView = new DiveLogView();
+                    }
+
+                    SelectedContent.Content = _diveLogView;
                 },
                 param => true
                 );
@@ -66,7 +79,12 @@ namespace DiveLogApplication.ViewModels
             NavigateSettingsCommand = new RelayCommand(
                 param =>
                 {
-                    SelectedContent.Navigate(new Uri("Views/SettingsView.xaml", UriKind.Relative));
+                    if (_settingsView == null)
+                    {
+                        _settingsView = new SettingsView();
+                    }
+
+                    SelectedContent.Content = _settingsView;
                 },
                 param => true);
         }
