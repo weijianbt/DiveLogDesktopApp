@@ -1,5 +1,6 @@
 ﻿using DiveLogApplication.Core;
 using DiveLogApplication.Models;
+using DiveLogApplication.Utilities;
 using DiveLogApplication.Views;
 using System;
 using System.Collections.Generic;
@@ -188,8 +189,13 @@ namespace DiveLogApplication.ViewModels
                             DataContext = vm
                         };
 
-                        dialog.ShowDialog();
-                        UpdateUI(vm.DiveEntry, index: index, isNewEntry: false);
+                        var result = DialogHelper.ShowCenteredDialog(Application.Current.MainWindow, dialog);
+
+                        if (result == true)
+                        {
+                            UpdateUI(vm.DiveEntry, index: index, isNewEntry: false);
+                        }
+
                     }
                 },
                 param => param is DiveEntry);
@@ -205,10 +211,12 @@ namespace DiveLogApplication.ViewModels
 
                     var dialog = new AddNewDiveEntry
                     {
-                        DataContext = vm
+                        DataContext = vm,
                     };
 
-                    if (dialog.ShowDialog() == true)
+                    var result = DialogHelper.ShowCenteredDialog(Application.Current.MainWindow, dialog);
+
+                    if (result == true)
                     {
                         UpdateUI(vm.DiveEntry, isNewEntry: true);
                     }
@@ -229,8 +237,12 @@ namespace DiveLogApplication.ViewModels
                             DataContext = vm
                         };
 
-                        dialog.ShowDialog();
-                        UpdateUI(vm.DiveEntry, index: index, isNewEntry: false);
+                        var result = DialogHelper.ShowCenteredDialog(Application.Current.MainWindow, dialog);
+
+                        if (result == true)
+                        {
+                            UpdateUI(vm.DiveEntry, index: index, isNewEntry: false);
+                        }
                     }
                 },
                 param => SelectedDiveEntry != null);
@@ -246,8 +258,13 @@ namespace DiveLogApplication.ViewModels
                         {
                             DataContext = vm
                         };
-                        dialog.ShowDialog();
-                        UpdateUI(vm.DiveEntry, isNewEntry: true);
+
+                        var result = DialogHelper.ShowCenteredDialog(Application.Current.MainWindow, dialog);
+
+                        if (result == true)
+                        {
+                            UpdateUI(vm.DiveEntry, isNewEntry: true);
+                        }
                     }
                 },
                 param => SelectedDiveEntry != null);
