@@ -51,20 +51,25 @@ namespace DiveLogApplication.Models
 
                 return false;
             }
-            else
+            else if (IsEdit) // If its an Edited entry, remove existing entry
             {
-                var newElement = new XElement("DiveLog",
-                                new XElement("DiveLogIndex", data.DiveLogIndex),
-                                new XElement("Location", data.Location),
-                                new XElement("DiveSite", data.DiveSite),
-                                new XElement("StartTime", data.StartTime),
-                                new XElement("EndTime", data.EndTime),
-                                new XElement("Duration", data.Duration),
-                                new XElement("MaxDepth", data.MaxDepth),
-                                new XElement("AverageDepth", data.AverageDepth));
-
-                _diveLogFile.Root.Add(newElement);
+                string idToFind = data.DiveLogIndex.ToString();
+                _diveLogFile.Descendants("DiveLog").FirstOrDefault(d => (string)d.Element("DiveLogIndex") == idToFind).Remove();
             }
+
+            // Add new entry.
+            var newElement = new XElement("DiveLog",
+                            new XElement("DiveLogIndex", data.DiveLogIndex),
+                            new XElement("Location", data.Location),
+                            new XElement("DiveSite", data.DiveSite),
+                            new XElement("StartTime", data.StartTime),
+                            new XElement("EndTime", data.EndTime),
+                            new XElement("Duration", data.Duration),
+                            new XElement("MaxDepth", data.MaxDepth),
+                            new XElement("AverageDepth", data.AverageDepth));
+
+            _diveLogFile.Root.Add(newElement);
+            
 
             _diveLogFile = SortElements(_diveLogFile);
             _diveLogFile.Save(_diveLogDirectory);
