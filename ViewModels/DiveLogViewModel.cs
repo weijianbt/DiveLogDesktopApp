@@ -28,35 +28,9 @@ namespace DiveLogApplication.ViewModels
 
         public DiveLogViewModel()
         {
-            //DiveLogList = new ObservableCollection<DiveEntry>()
-            //{
-            //    new DiveEntry()
-            //    {
-            //        DiveSite = "Tioman",
-            //        Location = "Tioman Mersing",
-            //        StartTime = DateTime.Now,
-            //        EndTime = DateTime.Now,
-            //        Duration = 12,
-            //        MaxDepth = 11.1,
-            //        AverageDepth = 9
-            //    },
-
-            //    new DiveEntry()
-            //    {
-            //        DiveSite = "Tenggol",
-            //        Location = "Terrengganu",
-            //        StartTime = DateTime.Now,
-            //        EndTime = DateTime.Now,
-            //        Duration = 45,
-            //        MaxDepth = 18,
-            //        AverageDepth = 10
-            //    }
-            //};
-
             _diveLogManager = new DiveLogManager();
             DiveLogList = new ObservableCollection<DiveEntry>();
             WireCommands();
-
         }
 
         public uint DiveLogIndex
