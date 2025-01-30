@@ -13,10 +13,108 @@
         <vm:MainWindowViewModel/>
     </Page.DataContext>
     <Grid>
-        <Label Content="Main page"/>
-
-        <Label Content="{Binding WelcomeMessage}"/>
-        <Label Content="{Binding TotalDives}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+
+            <Style TargetType="Border">
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="BorderBrush" Value="LightBlue"/>
+                <Setter Property="Margin" Value="3"/>
+            </Style>
+        </Grid.Resources>
+        
+        
+        <Label Grid.Row="0" Content="Main page"/>
+
+        <Border Grid.Row="1" Grid.Column="0">
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Total Dives"/>
+                <Separator Grid.Row="0" VerticalAlignment="Bottom"/>
+                <Label Grid.Row="1" Content="{Binding TotalDives}"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1">
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Longest Dive"/>
+                <Separator Grid.Row="0" VerticalAlignment="Bottom"/>
+                <Label Grid.Row="1"  Content="{Binding LongestDive}"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="2">
+            <Grid Grid.Row="1" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Deepest Dive"/>
+                <Separator Grid.Row="0" VerticalAlignment="Bottom"/>
+                <Label Grid.Row="1"  Content="{Binding DeepestDive}"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="0">
+            <Grid Grid.Row="2" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Most Frequent Dive Site"/>
+                <Separator Grid.Row="0" VerticalAlignment="Bottom"/>
+                <Label Grid.Row="1"  Content="{Binding MostFrequentDiveSite}"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="1">
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Average Depth"/>
+                <Separator Grid.Row="0" VerticalAlignment="Bottom"/>
+                <Label Grid.Row="1"  Content="{Binding AverageDepth}"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="2">
+            <Grid Grid.Row="2" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Last Dive Date"/>
+                <Separator Grid.Row="0" VerticalAlignment="Bottom"/>
+                <Label Grid.Row="1"  Content="{Binding LastDiveDate}"/>
+            </Grid>
+        </Border>
     </Grid>
 </Page>
