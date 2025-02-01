@@ -66,6 +66,7 @@
     <Compile Include="Models\DiveLicense.cs" />
     <Compile Include="Models\DiveLicenseManager.cs" />
     <Compile Include="Models\DiveEntry.cs" />
+    <Compile Include="Models\DiveLogAppData.cs" />
     <Compile Include="Models\DiveLogManager.cs" />
     <Compile Include="Utilities\DialogHelper.cs" />
     <Compile Include="Utilities\GenerateRandomID.cs" />

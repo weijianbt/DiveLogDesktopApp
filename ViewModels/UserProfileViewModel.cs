@@ -3,6 +3,7 @@ using DiveLogApplication.Models;
 using DiveLogApplication.Utilities;
 using DiveLogApplication.Views;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 
 namespace DiveLogApplication.ViewModels
@@ -14,18 +15,24 @@ namespace DiveLogApplication.ViewModels
         private string _profilePicturePath;
         private ObservableCollection<DiveLicense> _diveLicenseList;
         private DiveLicense _selectedDiveLicense;
-        private SettingsViewModel _settings;
-        private IniFile _iniFile;
+        private readonly DiveLogAppData _diveLogAppData;
 
         public UserProfileViewModel()
         {
-            _settings = new SettingsViewModel();
-            _diveLicenseManager = new DiveLicenseManager();
-            _iniFile = new IniFile(_settings.DiveLogSettingsFilePath);
 
+        }
+
+        public UserProfileViewModel(DiveLogAppData diveLogAppData)
+        {
+            _diveLogAppData = diveLogAppData;
             WireCommands();
+            LoadData();
+        }
 
-            LoadLicenseCommand.Execute(null);
+        private void LoadData()
+        {
+            DiveLicenseList = _diveLogAppData.DiveLicenseList;
+            ProfilePicturePath = _diveLogAppData.ProfilePicturePath;
         }
 
         public string ProfilePicturePath
@@ -69,8 +76,8 @@ namespace DiveLogApplication.ViewModels
             LoadLicenseCommand = new RelayCommand(
                 param =>
                 {
-                    DiveLicenseList = _diveLicenseManager.LoadData();
-                    ProfilePicturePath = _iniFile.Read(nameof(ProfilePicturePath), "General");
+                    DiveLicenseList = _diveLogAppData.DiveLicenseList;
+                    ProfilePicturePath = _diveLogAppData.ProfilePicturePath;
                 },
                 param => true
                 );
@@ -87,7 +94,7 @@ namespace DiveLogApplication.ViewModels
                     if (result == true)
                     {
                         ProfilePicturePath = fileDialog.FileName;
-                        _iniFile.Write(nameof(ProfilePicturePath), ProfilePicturePath, "General");
+                        _diveLogAppData.IniFile.Write(nameof(ProfilePicturePath), ProfilePicturePath, "General");
                     }
                 },
                 param => true);
@@ -96,9 +103,15 @@ namespace DiveLogApplication.ViewModels
                 param =>
                 {
                     var dialog = new AddNewLicenseView();
-                    dialog.ShowDialog();
+                    var vm = new AddNewLicenseViewModel();
+                    dialog.DataContext = vm;
 
-                    LoadLicenseCommand.Execute(null);
+                    if (dialog.ShowDialog() == true)
+                    {
+                        var newLicense = vm.NewDiveLicense;
+                        _diveLogAppData.AddLicense(newLicense);
+                        LoadLicenseCommand.Execute(null);
+                    }
                 },
                 param => true);
 
@@ -107,10 +120,10 @@ namespace DiveLogApplication.ViewModels
                 {
                     if (_selectedDiveLicense != null)
                     {
-                        var isDelete = MessageBox.Show("Are you sure you want to delete license?", "Delete License", MessageBoxButton.OKCancel);
+                        var isDelete = MessageBox.Show("Delete license?\nThis is not reversible.", "Delete License", MessageBoxButton.OKCancel);
                         if (isDelete == MessageBoxResult.OK)
                         {
-                            _diveLicenseManager.DeleteFromFile(_selectedDiveLicense);
+                            _diveLogAppData.DeleteLicense(_selectedDiveLicense);
                             LoadLicenseCommand.Execute(null);
                         }
                     }
@@ -118,20 +131,25 @@ namespace DiveLogApplication.ViewModels
                 param => _selectedDiveLicense != null);
 
             EditLicenseCommand = new RelayCommand(
-            param =>
-            {
-                if (_selectedDiveLicense != null)
+                param =>
                 {
-                    var dialog = new AddNewLicenseView
+                    if (_selectedDiveLicense != null)
                     {
-                        DataContext = new AddNewLicenseViewModel(_selectedDiveLicense, true)
-                    };
-                    dialog.ShowDialog();
+                        var dialog = new AddNewLicenseView();
+                        var vm = new AddNewLicenseViewModel(_selectedDiveLicense, true);
+                        dialog.DataContext = vm;
 
-                    LoadLicenseCommand.Execute(null);
-                }
-            },
-            param => _selectedDiveLicense != null);
+                        if (dialog.ShowDialog() == true)
+                        {
+                            var newLicense = vm.NewDiveLicense;
+                            var existingLicense = _diveLogAppData.DiveLicenseList.FirstOrDefault(l => l.UniqueId == _selectedDiveLicense.UniqueId);
+
+                            _diveLogAppData.AddLicense(newLicense, existingLicense: existingLicense, isEdit: true);
+                            LoadLicenseCommand.Execute(null);
+                        }
+                    }
+                },
+                param => _selectedDiveLicense != null);
         }
     }
 }

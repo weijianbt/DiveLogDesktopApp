@@ -38,6 +38,8 @@ namespace DiveLogApplication.ViewModels
             PopulateExistingItems(_diveLicense);
         }
 
+        public DiveLicense NewDiveLicense { get; set; }
+
         public string LicenseLevel
         {
             get => _licenseLevel;
@@ -159,12 +161,13 @@ namespace DiveLogApplication.ViewModels
                     };
 
                     _diveLicenseManager.WriteToFile(newLicenseData);
+                    NewDiveLicense = newLicenseData;
 
                     if (param is Window window)
                     {
+                        window.DialogResult = true;
                         window.Close();
                     }
-
                 },
                 param => CanSave);
 

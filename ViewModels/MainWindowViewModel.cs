@@ -17,10 +17,6 @@ namespace DiveLogApplication.ViewModels
         private DiveLogView _diveLogView;
         private SettingsView _settingsView;
 
-        private DiveLogViewModel _diveLogViewModel;
-        private UserProfileViewModel _userProfileViewModel;
-        private SettingsViewModel _settingsViewModel;
-
         // dive license parameters
         private string _welcomeMessage;
         private string _diverSinceMessage;
@@ -34,18 +30,19 @@ namespace DiveLogApplication.ViewModels
         private DateTime _lastDiveDate;
         private double _averageDepth;
 
+        private DiveLogAppData _diveLogAppData;
+
         public MainWindowViewModel()
         {
             _selectedContent = new Frame();
-            LoadViewModels();
-            LoadDiveLogData();
-            LoadUserProfileData();
+            _diveLogAppData = new DiveLogAppData();
+
             WireCommands();
         }
 
         public string WelcomeMessage
         {
-            get => _welcomeMessage;
+            get { return _diveLogAppData.WelcomeMessage; }
             set
             {
                 _welcomeMessage = value;
@@ -55,7 +52,7 @@ namespace DiveLogApplication.ViewModels
 
         public string DiverSinceMessage
         {
-            get => _diverSinceMessage;
+            get { return _diveLogAppData.DiverSinceMessage; }
             set 
             { 
                 _diverSinceMessage = value;
@@ -65,7 +62,7 @@ namespace DiveLogApplication.ViewModels
 
         public int TotalDives
         {
-            get => _totalDives;
+            get { return _diveLogAppData.TotalDives; }
             set
             {
                 _totalDives = value;
@@ -75,7 +72,7 @@ namespace DiveLogApplication.ViewModels
 
         public int TotalDiveLicenses
         {
-            get => _totalDiveLicenses;
+            get { return _diveLogAppData.TotalDiveLicenses; }
             set
             {
                 _totalDiveLicenses = value;
@@ -85,7 +82,7 @@ namespace DiveLogApplication.ViewModels
 
         public double LongestDive
         {
-            get => _longestDive;
+            get { return _diveLogAppData.LongestDive; }
             set 
             { 
                 _longestDive = value; 
@@ -95,7 +92,7 @@ namespace DiveLogApplication.ViewModels
 
         public double DeepestDive
         {
-            get => _deepestDive;
+            get { return _diveLogAppData.DeepestDive; }
             set
             {
                 _deepestDive = value;
@@ -105,7 +102,7 @@ namespace DiveLogApplication.ViewModels
 
         public string MostFrequentDiveSite
         {
-            get => _mostFrequentDiveSite;
+            get { return _diveLogAppData.MostFrequentDiveSite; }
             set
             {
                 _mostFrequentDiveSite = value;
@@ -115,7 +112,7 @@ namespace DiveLogApplication.ViewModels
 
         public DateTime LastDiveDate
         {
-            get => _lastDiveDate;
+            get { return _diveLogAppData.LastDiveDate; }
             set 
             { 
                 _lastDiveDate = value; 
@@ -125,7 +122,7 @@ namespace DiveLogApplication.ViewModels
 
         public double AverageDepth
         {
-            get => _averageDepth;
+            get { return _diveLogAppData.AverageDepth; }
             set
             {
                 _averageDepth = value;
@@ -168,7 +165,12 @@ namespace DiveLogApplication.ViewModels
                 {
                     if (_userProfileView == null)
                     {
-                        _userProfileView = new UserProfileView();
+
+                        UserProfileViewModel vm = new UserProfileViewModel(_diveLogAppData);
+                        _userProfileView = new UserProfileView
+                        {
+                            DataContext = vm
+                        };
                     }
 
                     SelectedContent.Content = _userProfileView;
@@ -201,48 +203,5 @@ namespace DiveLogApplication.ViewModels
                 },
                 param => true);
         }
-
-        private void LoadViewModels()
-        {
-            _diveLogViewModel = new DiveLogViewModel();
-            _diveLogViewModel.LoadedCommand.Execute(null);
-
-            _userProfileViewModel = new UserProfileViewModel();
-            _userProfileViewModel.LoadLicenseCommand.Execute(null);
- 
-        }
-
-        private void LoadDiveLogData()
-        {
-            TotalDives = _diveLogViewModel.DiveLogList.Count;
-            LongestDive = _diveLogViewModel.DiveLogList.Max(p => p.EndTime.Subtract(p.StartTime).TotalMinutes);
-            DeepestDive = _diveLogViewModel.DiveLogList.Max(p => p.MaxDepth);
-            MostFrequentDiveSite = _diveLogViewModel.DiveLogList
-                .Where(p => !string.IsNullOrWhiteSpace(p.DiveSite)) // Filter out empty/null entries
-                .GroupBy(p => p.DiveSite)
-                .OrderByDescending(g => g.Count())
-                .FirstOrDefault()
-                ?.Key ?? "N/A"; // Fallback if no valid DiveSites exist
-
-            AverageDepth = Math.Round(_diveLogViewModel.DiveLogList.Average(p => p.AverageDepth), 2);
-            LastDiveDate = _diveLogViewModel.DiveLogList.Max(p => p.EndTime);
-        }
-
-        private void LoadUserProfileData()
-        {
-
-            List<DateTime> dateTimeList = new List<DateTime>();
-            foreach(DiveLicense diveLicense in _userProfileViewModel.DiveLicenseList)
-            {
-                dateTimeList.Add(diveLicense.IssuedDate);
-            }
-
-            DateTime earliestLicense = dateTimeList.Min();
-
-            WelcomeMessage = $"Welcome! You have a total of {TotalDives} dives.";
-            DiverSinceMessage = $"Diver since {earliestLicense}";
-            TotalDiveLicenses = _userProfileViewModel.DiveLicenseList.Count;
-        }
-
     }
 }
