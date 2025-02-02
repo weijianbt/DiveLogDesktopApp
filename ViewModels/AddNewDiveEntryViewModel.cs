@@ -136,6 +136,7 @@ namespace DiveLogApplication.ViewModels
         public RelayCommand EditEntryCommand { get; private set; }
         public RelayCommand SaveEntryCommand { get; private set; }
         public RelayCommand CancelCommand { get; private set; }
+        public DiveEntry NewDiveEntry { get; set; }
 
         private void WireCommands()
         {
@@ -149,6 +150,9 @@ namespace DiveLogApplication.ViewModels
             SaveEntryCommand = new RelayCommand(
                 param =>
                 {
+
+                    int indexToFind = (int)_diveEntry.DiveLogIndex;
+
                     // Populate the _diveEntry fields
                     _diveEntry.DiveLogIndex = DiveLogIndex;
                     _diveEntry.Location = Location;
@@ -161,10 +165,11 @@ namespace DiveLogApplication.ViewModels
 
                     _diveLogManager.IsEdit = _isNewEntry == false;
                     _diveLogManager.IsSameIndex = _originalDiveLogIndex == DiveLogIndex;
-                    bool canClose = _diveLogManager.WriteToFile(DiveEntry);
+                    bool canClose = _diveLogManager.WriteToFile(DiveEntry, indexToFind);
 
                     if (param is Window window && canClose)
                     {
+                        NewDiveEntry = _diveEntry;
                         window.DialogResult = true;
                         window.Close();
                     }

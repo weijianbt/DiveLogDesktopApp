@@ -150,11 +150,7 @@ namespace DiveLogApplication.ViewModels
             NavigateMainPageCommand = new RelayCommand(
                 param =>
                 {
-                    if (_mainPageView == null)
-                    {
-                        _mainPageView = new MainPageView();
-                    }
-
+                    _mainPageView = new MainPageView();
                     SelectedContent.Content = _mainPageView;
                 },
                 param => true
@@ -165,7 +161,6 @@ namespace DiveLogApplication.ViewModels
                 {
                     if (_userProfileView == null)
                     {
-
                         UserProfileViewModel vm = new UserProfileViewModel(_diveLogAppData);
                         _userProfileView = new UserProfileView
                         {
@@ -183,7 +178,11 @@ namespace DiveLogApplication.ViewModels
                 {
                     if (_diveLogView == null)
                     {
-                        _diveLogView = new DiveLogView();
+                        DiveLogViewModel vm = new DiveLogViewModel(_diveLogAppData);
+                        _diveLogView = new DiveLogView
+                        {
+                            DataContext = vm
+                        };
                     }
 
                     SelectedContent.Content = _diveLogView;

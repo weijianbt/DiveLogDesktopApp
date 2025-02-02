@@ -29,7 +29,7 @@ namespace DiveLogApplication.Models
 
         public bool IsSameIndex { get; set; }
 
-        public bool WriteToFile(DiveEntry data)
+        public bool WriteToFile(DiveEntry data, int indexToFind)
         {
             if (!File.Exists(_diveLogDirectory))
             {
@@ -53,8 +53,7 @@ namespace DiveLogApplication.Models
             }
             else if (IsEdit) // If its an Edited entry, remove existing entry
             {
-                string idToFind = data.DiveLogIndex.ToString();
-                _diveLogFile.Descendants("DiveLog").FirstOrDefault(d => (string)d.Element("DiveLogIndex") == idToFind).Remove();
+                _diveLogFile.Descendants("DiveLog").FirstOrDefault(d => (string)d.Element("DiveLogIndex") == indexToFind.ToString()).Remove();
             }
 
             // Add new entry.

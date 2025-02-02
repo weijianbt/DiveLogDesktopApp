@@ -13,34 +13,6 @@ namespace DiveLogApplication.Models
 {
     public class DiveLogAppData : ViewModel
     {
-        // views
-        private MainPageView _mainPageView;
-        private UserProfileView _userProfileView;
-        private DiveLogView _diveLogView;
-        private SettingsView _settingsView;
-
-        // view models
-        private UserProfileViewModel _userProfileViewModel;
-        private DiveLogViewModel _diveLogViewModel;
-        private SettingsViewModel _settingsViewModel;
-        
-        // utilities
-        private DiveLicenseManager _diveLicenseManager;
-        private DiveLogManager _diveLogManager;
-
-        // dive license parameters
-        private string _welcomeMessage;
-        private string _diverSinceMessage;
-        private int _totalDives;
-        private int _totalDiveLicenses;
-
-        // dive log parameters
-        private double _longestDive;
-        private double _deepestDive;
-        private string _mostFrequentDiveSite;
-        private DateTime _lastDiveDate;
-        private double _averageDepth;
-
         public DiveLogAppData()
         {
             SettingsViewModel = new SettingsViewModel();
@@ -100,6 +72,27 @@ namespace DiveLogApplication.Models
             DiveLicenseManager.DeleteFromFile(diveLicense);
         }
 
+        public void AddDiveLog(DiveEntry diveEntry, int listIndex = 0, bool isNewEntry = false)
+        {
+            if (!isNewEntry)
+            {
+                DiveLogList.RemoveAt(listIndex);
+                DiveLogList.Insert(listIndex, diveEntry);
+            }
+            else
+            {
+                DiveLogList.Add(diveEntry);
+            }
+
+            SortDiveEntriesDescending();
+        }
+
+        public void DeleteDiveLog(DiveEntry diveEntry)
+        {
+            DiveLogList.Remove(diveEntry);
+            DiveLogManager.Delete(diveEntry);
+        }
+
         private void LoadAppSettingsFromFile()
         {
             ProfilePicturePath = IniFile.Read(nameof(ProfilePicturePath), "General");
@@ -157,6 +150,17 @@ namespace DiveLogApplication.Models
 
             AverageDepth = Math.Round(diveLoglist.Average(p => p.AverageDepth), 2);
             LastDiveDate = diveLoglist.Max(p => p.EndTime);
+        }
+
+        private void SortDiveEntriesDescending()
+        {
+            var sortedList = DiveLogList.OrderByDescending(o => o.DiveLogIndex).ToList();
+
+            DiveLogList.Clear();
+            foreach (var item in sortedList)
+            {
+                DiveLogList.Add(item);
+            }
         }
     }
 }

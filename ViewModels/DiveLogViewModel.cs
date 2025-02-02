@@ -24,13 +24,18 @@ namespace DiveLogApplication.ViewModels
         private ObservableCollection<DiveEntry> _diveLogList;
         private DiveEntry _selectedDiveEntry;
         private List<uint> _diveLogIndexList = new List<uint>();
-        private DiveLogManager _diveLogManager;
+        private readonly DiveLogAppData _diveLogAppData;
 
         public DiveLogViewModel()
         {
-            _diveLogManager = new DiveLogManager();
-            DiveLogList = new ObservableCollection<DiveEntry>();
+        }
+
+        public DiveLogViewModel(DiveLogAppData diveLogAppData)
+        {
+            _diveLogAppData = diveLogAppData;
+
             WireCommands();
+            LoadedCommand.Execute(null);
         }
 
         public uint DiveLogIndex
@@ -145,8 +150,7 @@ namespace DiveLogApplication.ViewModels
             LoadedCommand = new RelayCommand(
                 param =>
                 {
-                    _diveLogManager.Load();
-                    DiveLogList = _diveLogManager.DiveLogList ?? DiveLogList;
+                    DiveLogList = _diveLogAppData.DiveLogList;
                 },
                 param => true);
 
@@ -155,7 +159,7 @@ namespace DiveLogApplication.ViewModels
                 {
                     if (param is DiveEntry selectedDiveEntry)
                     {
-                        int index = DiveLogList.IndexOf(selectedDiveEntry);
+                        int index = _diveLogAppData.DiveLogList.IndexOf(selectedDiveEntry);
                         var vm = new AddNewDiveEntryViewModel(selectedDiveEntry, isPopulatingFromExisting: true, actionSource: ActionSource.DoubleClickFromList);
 
                         var dialog = new AddNewDiveEntry
@@ -167,9 +171,8 @@ namespace DiveLogApplication.ViewModels
 
                         if (result == true)
                         {
-                            UpdateUI(vm.DiveEntry, index: index, isNewEntry: false);
+                            _diveLogAppData.AddDiveLog(vm.NewDiveEntry, listIndex: index, isNewEntry: false);
                         }
-
                     }
                 },
                 param => param is DiveEntry);
@@ -192,7 +195,7 @@ namespace DiveLogApplication.ViewModels
 
                     if (result == true)
                     {
-                        UpdateUI(vm.DiveEntry, isNewEntry: true);
+                        _diveLogAppData.AddDiveLog(vm.NewDiveEntry, isNewEntry: true);
                     }
 
                 },
@@ -203,7 +206,7 @@ namespace DiveLogApplication.ViewModels
                 {
                     if (SelectedDiveEntry != null)
                     {
-                        int index = DiveLogList.IndexOf(SelectedDiveEntry);
+                        int listIndex = _diveLogAppData.DiveLogList.IndexOf(SelectedDiveEntry);
                         var vm = new AddNewDiveEntryViewModel(SelectedDiveEntry, isPopulatingFromExisting: true, actionSource: ActionSource.ClickFromButtonCommand);
 
                         var dialog = new AddNewDiveEntry
@@ -215,7 +218,7 @@ namespace DiveLogApplication.ViewModels
 
                         if (result == true)
                         {
-                            UpdateUI(vm.DiveEntry, index: index, isNewEntry: false);
+                            _diveLogAppData.AddDiveLog(vm.NewDiveEntry, listIndex: listIndex, isNewEntry: false);
                         }
                     }
                 },
@@ -237,7 +240,7 @@ namespace DiveLogApplication.ViewModels
 
                         if (result == true)
                         {
-                            UpdateUI(vm.DiveEntry, isNewEntry: true);
+                            _diveLogAppData.AddDiveLog(vm.NewDiveEntry, isNewEntry: true);
                         }
                     }
                 },
@@ -247,55 +250,15 @@ namespace DiveLogApplication.ViewModels
                 param =>
                 {
                     if (MessageBox.Show(
-                        "Are you sure you want to delete the dive log entry?",
+                        "Delete dive log?\nThis is not reversible.",
                         "Delete dive log",
                         MessageBoxButton.OKCancel,
                         MessageBoxImage.Warning) == MessageBoxResult.OK)
                     {
-                        _diveLogManager.Delete(SelectedDiveEntry);
-                        DiveLogList.Remove(SelectedDiveEntry);
+                        _diveLogAppData.DeleteDiveLog(SelectedDiveEntry);
                     }
                 },
                 param => SelectedDiveEntry != null);
-        }
-
-        private void UpdateUI(DiveEntry diveEntry, int index = 0, bool isNewEntry = true)
-        {
-            if (!isNewEntry)
-            {
-                DiveLogList.RemoveAt(index);
-                DiveLogList.Insert(index, diveEntry);
-            }
-            else
-            {
-                DiveLogList.Add(diveEntry);
-            }
-
-            SortDiveEntriesDescending();
-        }
-
-        private void SortDiveEntriesDescending()
-        {
-            var sortedList = DiveLogList.OrderByDescending(o => o.DiveLogIndex).ToList();
-
-            DiveLogList.Clear();
-            foreach (var item in sortedList)
-            {
-                DiveLogList.Add(item);
-            }
-        }
-
-        private void GetDiveLogIndexList()
-        {
-            if (DiveLogList.Count < 0)
-            {
-                return;
-            }
-
-            foreach (DiveEntry diveEntry in DiveLogList)
-            {
-                _diveLogIndexList.Add(diveEntry.DiveLogIndex);
-            }
         }
     }
 }
