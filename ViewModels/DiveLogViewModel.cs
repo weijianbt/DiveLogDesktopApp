@@ -171,7 +171,7 @@ namespace DiveLogApplication.ViewModels
 
                         if (result == true)
                         {
-                            _diveLogAppData.AddDiveLog(vm.NewDiveEntry, listIndex: index, isNewEntry: false);
+                            _diveLogAppData.AddDiveLog(vm.NewDiveEntry, listIndex: index, isEdit: true);
                         }
                     }
                 },
@@ -195,7 +195,7 @@ namespace DiveLogApplication.ViewModels
 
                     if (result == true)
                     {
-                        _diveLogAppData.AddDiveLog(vm.NewDiveEntry, isNewEntry: true);
+                        _diveLogAppData.AddDiveLog(vm.NewDiveEntry, isEdit: false);
                     }
 
                 },
@@ -218,7 +218,7 @@ namespace DiveLogApplication.ViewModels
 
                         if (result == true)
                         {
-                            _diveLogAppData.AddDiveLog(vm.NewDiveEntry, listIndex: listIndex, isNewEntry: false);
+                            _diveLogAppData.AddDiveLog(vm.NewDiveEntry, listIndex: listIndex, isEdit: true);
                         }
                     }
                 },
@@ -240,7 +240,7 @@ namespace DiveLogApplication.ViewModels
 
                         if (result == true)
                         {
-                            _diveLogAppData.AddDiveLog(vm.NewDiveEntry, isNewEntry: true);
+                            _diveLogAppData.AddDiveLog(vm.NewDiveEntry, isEdit: false);
                         }
                     }
                 },

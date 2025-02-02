@@ -72,9 +72,9 @@ namespace DiveLogApplication.Models
             DiveLicenseManager.DeleteFromFile(diveLicense);
         }
 
-        public void AddDiveLog(DiveEntry diveEntry, int listIndex = 0, bool isNewEntry = false)
+        public void AddDiveLog(DiveEntry diveEntry, int listIndex = 0, bool isEdit = false)
         {
-            if (!isNewEntry)
+            if (isEdit)
             {
                 DiveLogList.RemoveAt(listIndex);
                 DiveLogList.Insert(listIndex, diveEntry);
