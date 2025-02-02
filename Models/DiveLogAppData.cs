@@ -53,11 +53,11 @@ namespace DiveLogApplication.Models
             LoadSummaryData();
         }
 
-        public void AddLicense(DiveLicense diveLicense, DiveLicense existingLicense = null, bool isEdit = false)
+        public void AddLicense(DiveLicense diveLicense, int listIndex = 0, bool isEdit = false)
         {
             if (isEdit)
             {
-                DiveLicenseList.Remove(existingLicense);
+                DiveLicenseList.RemoveAt(listIndex);
                 DiveLicenseList.Add(diveLicense);
             }
             else

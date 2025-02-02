@@ -142,9 +142,9 @@ namespace DiveLogApplication.ViewModels
                         if (dialog.ShowDialog() == true)
                         {
                             var newLicense = vm.NewDiveLicense;
-                            var existingLicense = _diveLogAppData.DiveLicenseList.FirstOrDefault(l => l.UniqueId == _selectedDiveLicense.UniqueId);
+                            var licenseListIndex = _diveLogAppData.DiveLicenseList.IndexOf(_selectedDiveLicense);
 
-                            _diveLogAppData.AddLicense(newLicense, existingLicense: existingLicense, isEdit: true);
+                            _diveLogAppData.AddLicense(newLicense, listIndex: licenseListIndex, isEdit: true);
                             LoadLicenseCommand.Execute(null);
                         }
                     }
