@@ -2,9 +2,6 @@
 using DiveLogApplication.Models;
 using DiveLogApplication.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace DiveLogApplication.ViewModels
@@ -53,8 +50,8 @@ namespace DiveLogApplication.ViewModels
         public string DiverSinceMessage
         {
             get { return _diveLogAppData.DiverSinceMessage; }
-            set 
-            { 
+            set
+            {
                 _diverSinceMessage = value;
                 OnPropertyChanged();
             }
@@ -83,9 +80,9 @@ namespace DiveLogApplication.ViewModels
         public double LongestDive
         {
             get { return _diveLogAppData.LongestDive; }
-            set 
-            { 
-                _longestDive = value; 
+            set
+            {
+                _longestDive = value;
                 OnPropertyChanged();
             }
         }
@@ -113,9 +110,9 @@ namespace DiveLogApplication.ViewModels
         public DateTime LastDiveDate
         {
             get { return _diveLogAppData.LastDiveDate; }
-            set 
-            { 
-                _lastDiveDate = value; 
+            set
+            {
+                _lastDiveDate = value;
                 OnPropertyChanged();
             }
         }

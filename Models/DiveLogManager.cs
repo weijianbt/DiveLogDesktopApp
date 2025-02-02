@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Markup;
 using System.Xml.Linq;
 
 namespace DiveLogApplication.Models
@@ -68,7 +67,7 @@ namespace DiveLogApplication.Models
                             new XElement("AverageDepth", data.AverageDepth));
 
             _diveLogFile.Root.Add(newElement);
-            
+
 
             _diveLogFile = SortElements(_diveLogFile);
             _diveLogFile.Save(_diveLogDirectory);

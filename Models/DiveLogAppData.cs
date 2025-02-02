@@ -1,13 +1,10 @@
 ﻿using DiveLogApplication.Core;
 using DiveLogApplication.Utilities;
 using DiveLogApplication.ViewModels;
-using DiveLogApplication.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiveLogApplication.Models
 {
@@ -36,11 +33,11 @@ namespace DiveLogApplication.Models
 
         // dive log properties
         public string WelcomeMessage { get; set; }
-        public string DiverSinceMessage {  get; set; }
-        public string MostFrequentDiveSite {  get; set; }
+        public string DiverSinceMessage { get; set; }
+        public string MostFrequentDiveSite { get; set; }
         public int TotalDives { get; set; }
-        public double LongestDive {  get; set; }
-        public double DeepestDive {  get; set; }
+        public double LongestDive { get; set; }
+        public double DeepestDive { get; set; }
         public double AverageDepth { get; set; }
         public DateTime LastDiveDate { get; set; }
         public ObservableCollection<DiveEntry> DiveLogList { get; set; }
@@ -130,7 +127,7 @@ namespace DiveLogApplication.Models
             }
 
             WelcomeMessage = $"Welcome! You have a total of {TotalDives} dives.";
-            
+
             TotalDiveLicenses = DiveLicenseList.Count;
         }
 

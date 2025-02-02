@@ -10,7 +10,7 @@ namespace DiveLogApplication.ViewModels
         private readonly DiveEntry _diveEntry;
         private readonly bool _isNewEntry;
         private readonly uint _originalDiveLogIndex;
-        
+
         private bool _isEditable;
         private uint _diveLogIndex;
         private string _location;

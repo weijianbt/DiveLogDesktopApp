@@ -1,17 +1,13 @@
 ﻿using DiveLogApplication.Core;
 using DiveLogApplication.Models;
-using DiveLogApplication.Utilities;
 using DiveLogApplication.Views;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
 
 namespace DiveLogApplication.ViewModels
 {
     public class UserProfileViewModel : ViewModel
     {
-        private readonly DiveLicenseManager _diveLicenseManager;
-
         private string _profilePicturePath;
         private ObservableCollection<DiveLicense> _diveLicenseList;
         private DiveLicense _selectedDiveLicense;

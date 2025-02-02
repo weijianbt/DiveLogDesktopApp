@@ -1,7 +1,6 @@
 ﻿using DiveLogApplication.Core;
 using DiveLogApplication.Utilities;
 using System;
-using System.CodeDom;
 using System.IO;
 using System.Windows.Forms;
 
@@ -34,7 +33,7 @@ namespace DiveLogApplication.ViewModels
         public string DiveLogFullFilePath { get; set; }
 
         public string DiveLicenseFullFilePath { get; set; }
-        
+
         public string ProfilePicturePath { get; set; }
 
         public string DiveLogSettingsFilePath
