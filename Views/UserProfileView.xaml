@@ -46,11 +46,11 @@
                     RowHeight="30" Width="Auto" ColumnHeaderHeight="30" SelectionChanged="DataGrid_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="License Level" Binding="{Binding LicenseLevel}" Width="Auto"/>
+                    <DataGridTextColumn Header="License ID" Binding="{Binding Id}" Width="Auto"/>
                     <DataGridTextColumn Header="License Provider" Binding="{Binding LicenseProvider}" Width="Auto"/>
                     <DataGridTextColumn Header="Dive Centre" Binding="{Binding DiveCentre}" Width="Auto"/>
                     <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="Auto"/>
                     <DataGridTextColumn Header="Issued Date" Binding="{Binding IssuedDate, StringFormat={}{0:dd/MM/yyyy}}" Width="Auto"/>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -60,8 +60,6 @@
                 <Button Content="Delete" Margin="3" Width="80" Command="{Binding DeleteLicenseCommand}"/>
             </StackPanel>
         </Grid>
-        
-
     </Grid>
 
 </Page>
