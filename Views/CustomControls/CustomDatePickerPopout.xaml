@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="DiveLogApplication.Views.CustomControls.CustomDatePickerPopout"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DiveLogApplication.Utilities.TimePickerHelper"
+             mc:Ignorable="d" 
+             Background="White" Height="80" Width="155">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" Grid.Column="0" Height="20" Width="50" Margin="1" Content="+"  HorizontalAlignment="Left" Command="{Binding HourIncreaseCommand}"/>
+        <Button Grid.Row="0" Grid.Column="2" Height="20" Width="50" Margin="1" Content="+"  HorizontalAlignment="Left" Command="{Binding MinuteIncreaseCommand}"/>
+
+        <TextBox Grid.Row="1" Grid.Column="0" Height="25" Width="50" Margin="1" Text="{Binding Hour}" HorizontalAlignment="Left"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="1" Text=":" HorizontalAlignment="Center" VerticalContentAlignment="Center" />
+        <TextBox Grid.Row="1" Grid.Column="2" Height="25" Width="50" Margin="1" Text="{Binding Minute}"  HorizontalAlignment="Left"/>
+        <ComboBox Grid.Row="1" Grid.Column="3" Height="25" Width="35" Margin="1" ItemsSource="{Binding DayOrNight}" SelectedItem="{Binding SelectedDayOrNight}"/>
+
+        <Button Grid.Row="2" Grid.Column="0" Height="20" Width="50" Margin="1" Content="-" HorizontalAlignment="Left" Command="{Binding HourDecreaseCommand}"/>
+        <Button Grid.Row="2" Grid.Column="2" Height="20" Width="50" Margin="1" Content="-" HorizontalAlignment="Left" Command="{Binding MinuteDecreaseCommand}"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="DiveLogApplication.Views.CustomControls.CustomDatePicker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:DiveLogApplication.Views.CustomControls"
+             xmlns:c="clr-namespace:DiveLogApplication.Utilities.TimePickerHelper"
+             Background="Transparent">
+    <UserControl.Resources>
+        <c:ValidationErrorConverter x:Key="ValidationErrorConverter"/>
+        <c:StringToIntConverter x:Key="StringToIntConverter"/>
+    </UserControl.Resources>
+        
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <DatePicker/>
+        </Grid>
+        
+        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBox Text="{Binding Hour, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Converter={StaticResource StringToIntConverter}}" Width="25" HorizontalAlignment="Center" VerticalContentAlignment="Center">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="ToolTip">
+                            <Setter.Value>
+                                <MultiBinding Converter="{StaticResource ValidationErrorConverter}">
+                                    <Binding Path="(Validation.Errors)" RelativeSource="{RelativeSource Self}" />
+                                </MultiBinding>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="BorderBrush" Value="Red"/>
+                                <Setter Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+
+            <TextBlock Text=":" VerticalAlignment="Center"/>
+
+            <TextBox Text="{Binding Minute, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Converter={StaticResource StringToIntConverter}}" Width="25" HorizontalAlignment="Center" VerticalContentAlignment="Center">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="ToolTip">
+                            <Setter.Value>
+                                <MultiBinding Converter="{StaticResource ValidationErrorConverter}">
+                                    <Binding Path="(Validation.Errors)" RelativeSource="{RelativeSource Self}" />
+                                </MultiBinding>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="BorderBrush" Value="Red"/>
+                                <Setter Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+
+            <ComboBox ItemsSource="{Binding DayOrNightOptions, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+              SelectedItem="{Binding SelectedDayOrNight, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+              Width="50" VerticalContentAlignment="Center"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
+
+
+
+
+
+
+
+

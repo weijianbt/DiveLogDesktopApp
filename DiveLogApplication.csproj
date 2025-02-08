@@ -54,6 +54,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit">
+      <HintPath>lib\WPFToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -63,6 +66,13 @@
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="Models\ActionSource.cs" />
+    <Compile Include="Utilities\TimePickerHelper\StringToIntConverter.cs" />
+    <Compile Include="Utilities\TimePickerHelper\ValidationErrorConverter.cs" />
+    <Compile Include="Views\CustomControls\CustomDatePickerPopout.xaml.cs">
+      <DependentUpon>CustomDatePickerPopout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\TimePickerHelper\TimePickerHelper.cs" />
+    <Compile Include="Utilities\TimePickerHelper\DayOrNight.cs" />
     <Compile Include="Models\DiveLicense.cs" />
     <Compile Include="Models\DiveLicenseManager.cs" />
     <Compile Include="Models\DiveEntry.cs" />
@@ -90,11 +100,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\CustomControls\CustomDatePickerPopout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddNewDiveEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddNewLicenseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomControls\CustomDatePicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -121,6 +139,9 @@
     </Compile>
     <Compile Include="Views\AddNewLicenseView.xaml.cs">
       <DependentUpon>AddNewLicenseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomControls\CustomDatePicker.xaml.cs">
+      <DependentUpon>CustomDatePicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPageView.xaml.cs">
       <DependentUpon>MainPageView.xaml</DependentUpon>
