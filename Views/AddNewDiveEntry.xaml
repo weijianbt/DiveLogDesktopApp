@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiveLogApplication.Views"
         xmlns:vm="clr-namespace:DiveLogApplication.ViewModels"
+        xmlns:r="clr-namespace:DiveLogApplication.Views.CustomControls"
         mc:Ignorable="d"
         Title="{Binding EntryType}"
         SizeToContent="Height"
         Width="450"
-        Height="300"
+        Height="Auto"
         >
     <Window.DataContext>
         <vm:AddNewDiveEntryViewModel/>
@@ -27,6 +28,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
@@ -58,10 +60,20 @@
                 <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DiveSite}"/>
 
                 <Label Grid.Row="3" Grid.Column="0" Content="Start Time: "/>
-                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding StartTime}"/>
+                <r:CustomDatePicker Grid.Row="3" Grid.Column="1" 
+                                    Hour="{Binding StartingHour}" 
+                                    Minute="{Binding StartingMinute}" 
+                                    SelectedDayOrNight="{Binding StartingDayOrNight}"
+                                    HasValidationError="{Binding HasValidationError}"/>
+                <!--<TextBox Grid.Row="3" Grid.Column="1" Text="{Binding StartTime}"/>-->
 
                 <Label Grid.Row="4" Grid.Column="0" Content="End Time: "/>
-                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding EndTime}"/>
+                <r:CustomDatePicker Grid.Row="4" Grid.Column="1" 
+                                    Hour="{Binding EndingHour}" 
+                                    Minute="{Binding EndingMinute}" 
+                                    SelectedDayOrNight="{Binding EndingDayOrNight}"
+                                    HasValidationError="{Binding HasValidationError}"/>
+                <!--<TextBox Grid.Row="4" Grid.Column="1" Text="{Binding EndTime}"/>-->
 
                 <Label Grid.Row="5" Grid.Column="0" Content="Duration: "/>
                 <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Duration}"/>
@@ -71,7 +83,6 @@
 
                 <Label Grid.Row="7" Grid.Column="0" Content="Average Depth (m): "/>
                 <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding AverageDepth}"/>
-
             </Grid>
 
             <Grid Grid.Row="1" HorizontalAlignment="Right">

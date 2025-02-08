@@ -1,5 +1,6 @@
 ﻿using DiveLogApplication.Core;
 using DiveLogApplication.Models;
+using DiveLogApplication.Utilities;
 using System;
 using System.Windows;
 
@@ -22,6 +23,11 @@ namespace DiveLogApplication.ViewModels
         private double _averageDepth;
 
         private readonly DiveLogManager _diveLogManager = new DiveLogManager();
+
+        private DayOrNight _startingDayOrNight;
+        private int _startingHour = 1;
+        private int _startingMinute = 1;
+        private bool _hasValidationError = true;
 
         public AddNewDiveEntryViewModel() : this(null, true, ActionSource.DoubleClickFromList) { }
 
@@ -132,11 +138,57 @@ namespace DiveLogApplication.ViewModels
             }
         }
 
+        public int StartingHour
+        {
+            get => _startingHour;
+            set
+            {
+                _startingHour = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int StartingMinute
+        {
+            get => _startingMinute;
+            set
+            {
+                _startingMinute = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DayOrNight StartingDayOrNight
+        {
+            get => _startingDayOrNight;
+            set
+            {
+                _startingDayOrNight = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool HasValidationError
+        {
+            get => _hasValidationError;
+            set
+            {
+                _hasValidationError = value;
+                OnPropertyChanged();
+            }
+        }
+
         public DiveEntry DiveEntry => _diveEntry;
+        public DiveEntry NewDiveEntry { get; set; }
         public RelayCommand EditEntryCommand { get; private set; }
         public RelayCommand SaveEntryCommand { get; private set; }
         public RelayCommand CancelCommand { get; private set; }
-        public DiveEntry NewDiveEntry { get; set; }
+
+        public RelayCommand HourIncreaseCommand { get; set; }
+        public RelayCommand HourDecreaseCommand { get; set; }
+        public RelayCommand MinuteIncreaseCommand { get; set; }
+        public RelayCommand MinuteDecreaseCommand { get; set; }
+        public RelayCommand OKCommand { get; set; }
 
         private void WireCommands()
         {
@@ -150,7 +202,6 @@ namespace DiveLogApplication.ViewModels
             SaveEntryCommand = new RelayCommand(
                 param =>
                 {
-
                     int indexToFind = (int)_diveEntry.DiveLogIndex;
 
                     // Populate the _diveEntry fields
@@ -174,7 +225,7 @@ namespace DiveLogApplication.ViewModels
                         window.Close();
                     }
                 },
-                param => IsEditable);
+                param => IsEditable && !HasValidationError);
 
             CancelCommand = new RelayCommand(
                 param =>
@@ -185,7 +236,6 @@ namespace DiveLogApplication.ViewModels
                     }
                 },
                 param => true);
-
         }
 
         private void PopulateExistingFields(DiveEntry diveEntry)
