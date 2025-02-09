@@ -52,7 +52,7 @@
         </Grid>
 
         <Grid Grid.Row="0" Grid.Column="2">
-            <Label Content="{Binding CurrentDateTime}" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+            <Label Content="{Binding CurrentDateTime}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,0,0"/>
         </Grid>
         
         <Border Grid.Row="1" Grid.Column="0">
