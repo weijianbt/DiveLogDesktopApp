@@ -2,7 +2,10 @@
 using DiveLogApplication.Models;
 using DiveLogApplication.Views;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace DiveLogApplication.ViewModels
 {
@@ -28,6 +31,8 @@ namespace DiveLogApplication.ViewModels
         private double _averageDepth;
 
         private DiveLogAppData _diveLogAppData;
+        private string _currentDatetime;
+        private DispatcherTimer _timer;
 
         public MainWindowViewModel()
         {
@@ -35,6 +40,7 @@ namespace DiveLogApplication.ViewModels
             _diveLogAppData = new DiveLogAppData();
 
             WireCommands();
+            StartTimer();
         }
 
         public string WelcomeMessage
@@ -127,6 +133,16 @@ namespace DiveLogApplication.ViewModels
             }
         }
 
+        public string CurrentDateTime
+        {
+            get { return _currentDatetime; }
+            set
+            {
+                _currentDatetime = value;
+                OnPropertyChanged();
+            }
+        }
+
         public RelayCommand NavigateMainPageCommand { get; private set; }
         public RelayCommand NavigateUserProfileCommand { get; private set; }
         public RelayCommand NavigateDiveLogCommand { get; private set; }
@@ -199,5 +215,24 @@ namespace DiveLogApplication.ViewModels
                 },
                 param => true);
         }
+
+        private void StartTimer()
+        {
+            Task.Run(async () =>
+            {
+                while (true)
+                {
+                    string currentTime = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt");
+
+                    await App.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        CurrentDateTime = currentTime;
+                    });
+
+                    await Task.Delay(1000); // Wait 1 second before next update
+                }
+            });
+        }
+
     }
 }

@@ -50,6 +50,10 @@
             <Label Grid.Row="0" Content="{Binding WelcomeMessage}"/>
             <Label Grid.Row="1" Content="{Binding DiverSinceMessage}" FontSize="15"/>
         </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Label Content="{Binding CurrentDateTime}" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+        </Grid>
         
         <Border Grid.Row="1" Grid.Column="0">
             <Grid Grid.Row="1" Grid.Column="0">
