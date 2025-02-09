@@ -12,8 +12,8 @@ namespace DiveLogApplication.Models
         public uint DiveLogIndex { get; set; }
         public string Location { get; set; }
         public string DiveSite { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
         public double Duration { get; set; }
         public double MaxDepth { get; set; }
         public double AverageDepth { get; set; }

@@ -4,6 +4,7 @@ using DiveLogApplication.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 
 namespace DiveLogApplication.Models
@@ -133,10 +134,14 @@ namespace DiveLogApplication.Models
 
         private void LoadDiveLogSummary()
         {
+            if (DiveLogList.Count == 0)
+            {
+                return;
+            }
+
             var diveLoglist = DiveLogList;
 
             TotalDives = diveLoglist.Count;
-            LongestDive = diveLoglist.Max(p => p.EndTime.Subtract(p.StartTime).TotalMinutes);
             DeepestDive = diveLoglist.Max(p => p.MaxDepth);
             MostFrequentDiveSite = diveLoglist
                 .Where(p => !string.IsNullOrWhiteSpace(p.DiveSite)) // Filter out empty/null entries
@@ -146,7 +151,8 @@ namespace DiveLogApplication.Models
                 ?.Key ?? "N/A"; // Fallback if no valid DiveSites exist
 
             AverageDepth = Math.Round(diveLoglist.Average(p => p.AverageDepth), 2);
-            LastDiveDate = diveLoglist.Max(p => p.EndTime);
+            LongestDive = diveLoglist.Max(p => p.Duration);
+            LastDiveDate = ParseDiveDates(diveLoglist);
         }
 
         private void SortDiveEntriesDescending()
@@ -158,6 +164,32 @@ namespace DiveLogApplication.Models
             {
                 DiveLogList.Add(item);
             }
+        }
+
+        private DateTime ParseDiveDates(ObservableCollection<DiveEntry> diveLogList)
+        {
+            // set default date to current time
+            DateTime latestDiveDate = DateTime.Now;
+
+            for (int i = 0; i < diveLogList.Count; i++)
+            {
+                if (i == 0)
+                {
+                    DateTime.TryParseExact(diveLogList[i].EndTime, "dd/MM/yyyy hh:mm tt", new CultureInfo("en-MY"), DateTimeStyles.None, out DateTime parsedDiveEndTime);
+                    latestDiveDate = parsedDiveEndTime;
+                }
+
+                // parse the start and end time, then calculate the duration
+                DateTime.TryParseExact(diveLogList[i].EndTime, "dd/MM/yyyy hh:mm tt", new CultureInfo("en-MY"), DateTimeStyles.None, out DateTime endTime);
+
+                // get latest dive
+                if (endTime > latestDiveDate)
+                {
+                    latestDiveDate = endTime;
+                }
+            }
+
+            return latestDiveDate;
         }
     }
 }

@@ -21,7 +21,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
-            <DatePicker/>
+            <DatePicker SelectedDate="{Binding SelectedDate , RelativeSource={RelativeSource AncestorType=UserControl}}"/>
         </Grid>
         
         <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">

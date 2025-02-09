@@ -11,7 +11,6 @@ namespace DiveLogApplication.Models
     public class DiveLogManager
     {
         private string _diveLogDirectory;
-        private string _diveLogFileName;
         private XDocument _diveLogFile = new XDocument();
         private SettingsViewModel _settings;
         private ObservableCollection<DiveEntry> _diveLogList;
@@ -128,16 +127,18 @@ namespace DiveLogApplication.Models
 
                 newDiveEntry.Location = diveLog.Element(nameof(DiveEntry.Location))?.Value;
                 newDiveEntry.DiveSite = diveLog.Element(nameof(DiveEntry.DiveSite))?.Value;
+                newDiveEntry.StartTime = diveLog.Element(nameof(DiveEntry.StartTime))?.Value;
+                newDiveEntry.EndTime = diveLog.Element(nameof(DiveEntry.EndTime))?.Value;
 
-                if (DateTime.TryParse(diveLog.Element(nameof(DiveEntry.StartTime))?.Value, out DateTime startTime))
-                {
-                    newDiveEntry.StartTime = startTime;
-                }
+                //if (string.TryParse(diveLog.Element(nameof(DiveEntry.StartTime))?.Value, out string startTime))
+                //{
+                //    newDiveEntry.StartTime = startTime;
+                //}
 
-                if (DateTime.TryParse(diveLog.Element(nameof(DiveEntry.EndTime))?.Value, out DateTime endTime))
-                {
-                    newDiveEntry.EndTime = endTime;
-                }
+                //if (DateTime.TryParse(diveLog.Element(nameof(DiveEntry.EndTime))?.Value, out DateTime endTime))
+                //{
+                //    newDiveEntry.EndTime = endTime;
+                //}
 
                 if (double.TryParse(diveLog.Element(nameof(DiveEntry.Duration))?.Value, out double duration))
                 {

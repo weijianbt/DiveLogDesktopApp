@@ -61,22 +61,24 @@
 
                 <Label Grid.Row="3" Grid.Column="0" Content="Start Time: "/>
                 <r:CustomDatePicker Grid.Row="3" Grid.Column="1" 
+                                    SelectedDate="{Binding StartDate}"
                                     Hour="{Binding StartingHour}" 
                                     Minute="{Binding StartingMinute}" 
                                     SelectedDayOrNight="{Binding StartingDayOrNight}"
-                                    HasValidationError="{Binding HasValidationError}"/>
-                <!--<TextBox Grid.Row="3" Grid.Column="1" Text="{Binding StartTime}"/>-->
+                                    HasValidationError="{Binding HasValidationError}"
+                                    IsEnabled="{Binding IsEditable}"/>
 
                 <Label Grid.Row="4" Grid.Column="0" Content="End Time: "/>
                 <r:CustomDatePicker Grid.Row="4" Grid.Column="1" 
+                                    SelectedDate="{Binding EndDate}"
                                     Hour="{Binding EndingHour}" 
                                     Minute="{Binding EndingMinute}" 
                                     SelectedDayOrNight="{Binding EndingDayOrNight}"
-                                    HasValidationError="{Binding HasValidationError}"/>
-                <!--<TextBox Grid.Row="4" Grid.Column="1" Text="{Binding EndTime}"/>-->
+                                    HasValidationError="{Binding HasValidationError}"
+                                    IsEnabled="{Binding IsEditable}"/>
 
-                <Label Grid.Row="5" Grid.Column="0" Content="Duration: "/>
-                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Duration}"/>
+                <Label Grid.Row="5" Grid.Column="0" Content="Duration (mins): "/>
+                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Duration}" IsReadOnly="True" IsEnabled="False"/>
 
                 <Label Grid.Row="6" Grid.Column="0" Content="Max Depth (m): "/>
                 <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding MaxDepth}"/>

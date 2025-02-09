@@ -39,6 +39,22 @@ namespace DiveLogApplication.Views.CustomControls
             set => SetValue(HasValidationErrorProperty, value);
         }
 
+        public static readonly DependencyProperty DateProperty =
+            DependencyProperty.Register(
+                nameof(SelectedDate),
+                typeof(DateTime),
+                typeof(CustomDatePicker),
+                new FrameworkPropertyMetadata(DateTime.Now,
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault
+                    )
+                );
+
+        public DateTime SelectedDate
+        {
+            get => (DateTime)GetValue(DateProperty);
+            set => SetValue(DateProperty, value);
+        }
+
         public static readonly DependencyProperty HourProperty =
             DependencyProperty.Register(
                 nameof(Hour),
