@@ -220,17 +220,29 @@ namespace DiveLogApplication.ViewModels
         {
             Task.Run(async () =>
             {
-                while (true)
+                try
                 {
-                    string currentTime = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt");
-
-                    await App.Current.Dispatcher.InvokeAsync(() =>
+                    while (true)
                     {
-                        CurrentDateTime = currentTime;
-                    });
+                        if (App.Current == null || App.Current.Dispatcher.HasShutdownStarted)
+                            break; // Stop the loop if the app is shutting down
 
-                    await Task.Delay(1000); // Wait 1 second before next update
+                        string currentTime = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt");
+
+                        await App.Current.Dispatcher.InvokeAsync(() =>
+                        {
+                            CurrentDateTime = currentTime;
+                        });
+
+                        await Task.Delay(1000); // Wait 1 second before next update
+                    }
                 }
+                catch (Exception ex)
+                {
+                    // Handle exceptions gracefully
+                    Console.WriteLine($"Timer stopped: {ex.Message}");
+                }
+
             });
         }
 
