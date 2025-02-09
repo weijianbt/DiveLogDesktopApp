@@ -102,19 +102,28 @@ namespace DiveLogApplication.ViewModels
             SaveCommand = new RelayCommand(
                 param =>
                 {
-                    if (_previousDiveLogDirectory != DiveLogDirectory)
+                    try
                     {
-                        _iniFile.MoveFile(Path.Combine(_previousDiveLogDirectory, _diveLogFileName), Path.Combine(DiveLogDirectory, _diveLogFileName));
-                    }
+                        if (_previousDiveLogDirectory != DiveLogDirectory)
+                        {
+                            _iniFile.MoveFile(Path.Combine(_previousDiveLogDirectory, _diveLogFileName), Path.Combine(DiveLogDirectory, _diveLogFileName));
+                        }
 
-                    if (_previousDiveLicenseDirectory != DiveLicenseDirectory)
+                        if (_previousDiveLicenseDirectory != DiveLicenseDirectory)
+                        {
+                            _iniFile.MoveFile(Path.Combine(_previousDiveLicenseDirectory, _diveLicenseFileName), Path.Combine(DiveLicenseDirectory, _diveLicenseFileName));
+                        }
+
+                        _iniFile.Write(nameof(Username), Username, _general);
+                        _iniFile.Write(nameof(DiveLicenseDirectory), DiveLicenseDirectory, _general);
+                        _iniFile.Write(nameof(DiveLogDirectory), DiveLogDirectory, _general);
+
+                        MessageBox.Show("Settings saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
                     {
-                        _iniFile.MoveFile(Path.Combine(_previousDiveLicenseDirectory, _diveLicenseFileName), Path.Combine(DiveLicenseDirectory, _diveLicenseFileName));
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-
-                    _iniFile.Write(nameof(Username), Username, _general);
-                    _iniFile.Write(nameof(DiveLicenseDirectory), DiveLicenseDirectory, _general);
-                    _iniFile.Write(nameof(DiveLogDirectory), DiveLogDirectory, _general);
                 },
                 param => true);
         }
