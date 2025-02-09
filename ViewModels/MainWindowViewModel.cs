@@ -32,7 +32,6 @@ namespace DiveLogApplication.ViewModels
 
         private DiveLogAppData _diveLogAppData;
         private string _currentDatetime;
-        private DispatcherTimer _timer;
 
         public MainWindowViewModel()
         {
