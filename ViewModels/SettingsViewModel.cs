@@ -20,6 +20,8 @@ namespace DiveLogApplication.ViewModels
 
         private string _previousDiveLicenseDirectory;
         private string _previousDiveLogDirectory;
+        private string _previousUsername;
+        private string _username;
 
         public SettingsViewModel()
         {
@@ -62,6 +64,16 @@ namespace DiveLogApplication.ViewModels
             }
         }
 
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                _username = value;
+                OnPropertyChanged();
+            }
+        }
+
         public RelayCommand SaveCommand { get; private set; }
         public RelayCommand SelectDirectoryCommand { get; private set; }
 
@@ -100,6 +112,7 @@ namespace DiveLogApplication.ViewModels
                         _iniFile.MoveFile(Path.Combine(_previousDiveLicenseDirectory, _diveLicenseFileName), Path.Combine(DiveLicenseDirectory, _diveLicenseFileName));
                     }
 
+                    _iniFile.Write(nameof(Username), Username, _general);
                     _iniFile.Write(nameof(DiveLicenseDirectory), DiveLicenseDirectory, _general);
                     _iniFile.Write(nameof(DiveLogDirectory), DiveLogDirectory, _general);
                 },
@@ -123,12 +136,14 @@ namespace DiveLogApplication.ViewModels
         {
             DiveLicenseDirectory = _iniFile.Read(nameof(DiveLicenseDirectory), _general);
             DiveLogDirectory = _iniFile.Read(nameof(DiveLogDirectory), _general);
+            Username = _iniFile.Read(nameof(Username), _general);
         }
 
         private void RecordPreviousValues()
         {
             _previousDiveLicenseDirectory = DiveLicenseDirectory;
             _previousDiveLogDirectory = DiveLogDirectory;
+            _previousUsername = Username;
         }
     }
 }

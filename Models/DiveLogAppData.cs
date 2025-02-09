@@ -31,6 +31,7 @@ namespace DiveLogApplication.Models
         public string ProfilePicturePath { get; set; }
         public int TotalDiveLicenses { get; set; }
         public ObservableCollection<DiveLicense> DiveLicenseList { get; set; }
+        public string Username { get; set; }
 
         // dive log properties
         public string WelcomeMessage { get; set; }
@@ -94,6 +95,7 @@ namespace DiveLogApplication.Models
         private void LoadAppSettingsFromFile()
         {
             ProfilePicturePath = IniFile.Read(nameof(ProfilePicturePath), "General");
+            Username = IniFile.Read(nameof(Username), "General");
         }
 
         private void LoadDiveLogFromFile()
@@ -115,6 +117,14 @@ namespace DiveLogApplication.Models
 
         private void LoadDiveLicenseSummary()
         {
+            string username = Username == null || Username.Length == 0 ? Environment.UserName : Username;
+            WelcomeMessage = $"Welcome, {username}!";
+
+            if (DiveLicenseList == null || DiveLicenseList.Count == 0)
+            {
+                return;
+            }
+
             List<DateTime> dateTimeList = new List<DateTime>();
             foreach (DiveLicense diveLicense in DiveLicenseList)
             {
@@ -124,17 +134,14 @@ namespace DiveLogApplication.Models
             if (dateTimeList.Count > 0)
             {
                 DateTime earliestLicense = dateTimeList.Min();
-                DiverSinceMessage = $"Diver since {earliestLicense}";
+                string textDate = earliestLicense.ToString("dd/MM/yyyy", new CultureInfo("en-MY"));
+                DiverSinceMessage = $"Diver since {textDate}";
             }
-
-            WelcomeMessage = $"Welcome! You have a total of {TotalDives} dives.";
-
-            TotalDiveLicenses = DiveLicenseList.Count;
         }
 
         private void LoadDiveLogSummary()
         {
-            if (DiveLogList.Count == 0)
+            if (DiveLogList == null || DiveLogList.Count == 0)
             {
                 return;
             }

@@ -33,6 +33,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
@@ -58,6 +59,11 @@
                         <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding DiveLogDirectory}" VerticalContentAlignment="Center"/>
                         <Button Grid.Row="0" Grid.Column="1" Content="..." Command="{Binding SelectDirectoryCommand}" CommandParameter="DiveLogDirectory"/>
                     </Grid>
+                </Grid>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="User name"/>
+                <Grid Grid.Row="2" Grid.Column="1" Margin="2">
+                    <TextBox Text="{Binding Username}" VerticalContentAlignment="Center"/>
                 </Grid>
             </Grid>
         </GroupBox>
