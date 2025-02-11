@@ -51,7 +51,7 @@ Customize the app to suit your needs.
 ## 🚀 Installation & Usage  
 1. **Clone the Repository** 
 ``` 
-git clone https://github.com/weijianbt/YourDiveJourney.git  
+git clone https://github.com/weijianbt/DiveLogDesktopApp.git  
 cd YourDiveJourney  
 ```
 2. **Build the project and run it**
