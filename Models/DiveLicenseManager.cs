@@ -114,7 +114,9 @@ namespace DiveLogApplication.Models
             }
             catch (FileNotFoundException)
             {
-                MessageBox.Show($"Dive license file not found @ {_licenseDirectory}");
+                //MessageBox.Show($"Dive license file not found @ {_licenseDirectory}");
+                Console.WriteLine($"Dive license file not found @ {_licenseDirectory}");
+                return _diveLicenseList;
             }
             catch (XmlException e)
             {

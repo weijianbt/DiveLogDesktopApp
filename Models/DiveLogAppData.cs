@@ -102,11 +102,21 @@ namespace DiveLogApplication.Models
         {
             DiveLogManager.Load();
             DiveLogList = DiveLogManager.DiveLogList;
+
+            if (DiveLogList == null)
+            {
+                DiveLogList = new ObservableCollection<DiveEntry>();
+            }
         }
 
         private void LoadDiveLicenseFromFile()
         {
             DiveLicenseList = DiveLicenseManager.LoadData();
+
+            if (DiveLicenseList == null)
+            {
+                DiveLicenseList = new ObservableCollection<DiveLicense>();
+            }
         }
 
         private void LoadSummaryData()

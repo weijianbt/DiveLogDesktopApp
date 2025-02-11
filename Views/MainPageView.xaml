@@ -40,9 +40,9 @@
 
                 <Style TargetType="Border">
                     <Setter Property="BorderThickness" Value="1"/>
-                    <Setter Property="CornerRadius" Value="10"/>
                     <Setter Property="Margin" Value="3"/>
                     <Setter Property="BorderBrush" Value="AntiqueWhite"/>
+                    <Setter Property="CornerRadius" Value="2"/>
                 </Style>
 
                 <Style TargetType="Separator">
@@ -56,8 +56,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0"  Background="Black" Opacity="0.2"/>
-                <Grid Grid.Row="1"  Background="Black" Opacity="0.2"/>
+                <Grid Grid.Row="0" Grid.RowSpan="2" Background="#1E2551" Opacity="0.8"/>
                 <Label Grid.Row="0" Content="{Binding WelcomeMessage}" FontWeight="DemiBold" FontSize="30"/>
                 <Label Grid.Row="1" Content="{Binding DiverSinceMessage}" FontSize="20" FontStyle="Italic"/>
             </Grid>
@@ -65,7 +64,7 @@
             <Grid Grid.Row="0" Grid.Column="2">
                 <Label Content="{Binding CurrentDateTime}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,3,0,0" FontSize="15"/>
             </Grid>
-        
+
             <Border Grid.Row="1" Grid.Column="0">
                 <Grid Grid.Row="1" Grid.Column="0">
                     <Grid.RowDefinitions>
