@@ -145,7 +145,7 @@ namespace DiveLogApplication.Models
             {
                 DateTime earliestLicense = dateTimeList.Min();
                 string textDate = earliestLicense.ToString("dd/MM/yyyy", new CultureInfo("en-MY"));
-                DiverSinceMessage = $"Diver since {textDate}";
+                DiverSinceMessage = $"Diving since {textDate}";
             }
         }
 
