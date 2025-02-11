@@ -51,7 +51,7 @@ Customize the app to suit your needs.
 ## 🚀 Installation & Usage  
 1. **Clone the Repository** 
 ``` 
-git clone https://github.com/yourusername/YourDiveJourney.git  
+git clone https://github.com/weijianbt/YourDiveJourney.git  
 cd YourDiveJourney  
 ```
 2. **Build the project and run it**
