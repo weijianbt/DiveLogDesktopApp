@@ -52,7 +52,6 @@ Customize the app to suit your needs.
 1. **Clone the Repository** 
 ``` 
 git clone https://github.com/weijianbt/DiveLogDesktopApp.git  
-cd YourDiveJourney  
 ```
 2. **Build the project and run it**
 3. **Start Logging Dives!**  
