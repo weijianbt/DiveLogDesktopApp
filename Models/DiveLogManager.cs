@@ -152,7 +152,7 @@ namespace DiveLogApplication.Models
 
                 if (double.TryParse(diveLog.Element(nameof(DiveEntry.AverageDepth))?.Value, out double averageDepth))
                 {
-                    newDiveEntry.AverageDepth = diveLogIndex;
+                    newDiveEntry.AverageDepth = averageDepth;
                 }
 
                 _diveLogList.Add(newDiveEntry);
