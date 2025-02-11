@@ -16,18 +16,26 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <Grid.Resources>
+            <Style TargetType="Button">
+                <Setter Property="Width" Value="70"/>
+                <Setter Property="Height" Value="70"/>
+                <Setter Property="Margin" Value="3"/>
+            </Style>
+        </Grid.Resources>
+
         <Border Grid.Column="0" BorderBrush="LightGray" BorderThickness="1">
             <StackPanel Orientation="Vertical" Margin="5">
-                <Button Content="Main Page" Width="70" Height="70" Command="{Binding NavigateMainPageCommand}"/>
-                <Button Content="User Profile" Width="70" Height="70" Command="{Binding NavigateUserProfileCommand}"/>
-                <Button Content="Dive logs" Width="70" Height="70" Command="{Binding NavigateDiveLogCommand}"/>
-                <Button Content="Settings" Width="70" Height="70" Command="{Binding NavigateSettingsCommand}"/>
+                <Button Content="Main Page" Command="{Binding NavigateMainPageCommand}"/>
+                <Button Content="User Profile" Command="{Binding NavigateUserProfileCommand}"/>
+                <Button Content="Dive logs" Command="{Binding NavigateDiveLogCommand}"/>
+                <Button Content="Settings" Command="{Binding NavigateSettingsCommand}"/>
             </StackPanel>
         </Border>
 
         <Border Grid.Column="1">
             <Frame NavigationUIVisibility="Hidden" Content="{Binding SelectedContent}"/>
         </Border>
-        
+
     </Grid>
 </Window>

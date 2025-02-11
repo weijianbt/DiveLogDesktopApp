@@ -27,7 +27,7 @@ namespace DiveLogApplication.ViewModels
         private double _longestDive;
         private double _deepestDive;
         private string _mostFrequentDiveSite;
-        private DateTime _lastDiveDate;
+        private string _lastDiveDate;
         private double _averageDepth;
 
         private DiveLogAppData _diveLogAppData;
@@ -112,7 +112,7 @@ namespace DiveLogApplication.ViewModels
             }
         }
 
-        public DateTime LastDiveDate
+        public string LastDiveDate
         {
             get { return _diveLogAppData.LastDiveDate; }
             set

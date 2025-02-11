@@ -41,7 +41,7 @@ namespace DiveLogApplication.Models
         public double LongestDive { get; set; }
         public double DeepestDive { get; set; }
         public double AverageDepth { get; set; }
-        public DateTime LastDiveDate { get; set; }
+        public string LastDiveDate { get; set; }
         public ObservableCollection<DiveEntry> DiveLogList { get; set; }
 
         public void InitializeData()
@@ -173,7 +173,7 @@ namespace DiveLogApplication.Models
             }
         }
 
-        private DateTime ParseDiveDates(ObservableCollection<DiveEntry> diveLogList)
+        private string ParseDiveDates(ObservableCollection<DiveEntry> diveLogList)
         {
             // set default date to current time
             DateTime latestDiveDate = DateTime.Now;
@@ -196,7 +196,10 @@ namespace DiveLogApplication.Models
                 }
             }
 
-            return latestDiveDate;
+            // convert back to string
+            string latestDiveDateString = latestDiveDate.ToString("dd/MM/yyyy", new CultureInfo("en-MY"));
+
+            return latestDiveDateString;
         }
     }
 }
