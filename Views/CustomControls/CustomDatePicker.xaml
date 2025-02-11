@@ -20,7 +20,13 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
-            <DatePicker SelectedDate="{Binding SelectedDate , RelativeSource={RelativeSource AncestorType=UserControl}}" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <DatePicker SelectedDate="{Binding SelectedDate , RelativeSource={RelativeSource AncestorType=UserControl}}" VerticalAlignment="Center" VerticalContentAlignment="Center">
+                <DatePicker.Resources>
+                    <Style TargetType="DatePickerTextBox">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                </DatePicker.Resources>
+            </DatePicker>
         </Grid>
         
         <Grid Grid.Column="1">
