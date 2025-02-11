@@ -8,7 +8,6 @@
       xmlns:vm="clr-namespace:DiveLogApplication.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Background="White"
       Title="Dive Log">
     <Page.DataContext>
         <vm:DiveLogViewModel/>
@@ -28,11 +27,11 @@
                  ItemsSource="{Binding DiveLogList}" SelectedItem="{Binding SelectedDiveEntry}"
                  MouseDoubleClick="ListBox_MouseDoubleClick"
                  HorizontalContentAlignment="Stretch"
+                 Background="AliceBlue"
                  >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="DarkGray" BorderThickness="1">
-
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"/>
@@ -40,14 +39,14 @@
                             </Grid.ColumnDefinitions>
 
                             <Grid Grid.Column="0">
-                                <Border CornerRadius="10" BorderBrush="LightBlue" BorderThickness="1" Margin="5">
+                                <Border CornerRadius="15" BorderBrush="DarkBlue" BorderThickness="1" Margin="5">
                                     <Label Content="{Binding DiveLogIndex}" Width="Auto" Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30"/>
                                 </Border>
                             </Grid>
                             
                             <Grid Grid.Column="1">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="150"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
@@ -64,37 +63,37 @@
                                     <Style TargetType="Label">
                                         <Setter Property="HorizontalAlignment" Value="Left"/>
                                         <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="14"/>
                                     </Style>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="HorizontalAlignment" Value="Left"/>
                                         <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="14"/>
                                     </Style>
                                 </Grid.Resources>
 
-                                <Label Grid.Row="0" Grid.Column="0" Content="Dive Location: "/>
+                                <Label Grid.Row="0" Grid.Column="0" Content="Dive Location: " FontWeight="DemiBold"/>
                                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Location}"/>
 
-                                <Label Grid.Row="1" Grid.Column="0" Content="Dive Site: "/>
+                                <Label Grid.Row="1" Grid.Column="0" Content="Dive Site: " FontWeight="DemiBold"/>
                                 <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding DiveSite}"/>
 
-                                <Label Grid.Row="2" Grid.Column="0" Content="Start Time: "/>
+                                <Label Grid.Row="2" Grid.Column="0" Content="Start Time: " FontWeight="DemiBold"/>
                                 <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding StartTime}"/>
 
-                                <Label Grid.Row="3" Grid.Column="0" Content="End Time: "/>
+                                <Label Grid.Row="3" Grid.Column="0" Content="End Time: " FontWeight="DemiBold"/>
                                 <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding EndTime}"/>
 
-                                <Label Grid.Row="4" Grid.Column="0" Content="Duration (mins): "/>
+                                <Label Grid.Row="4" Grid.Column="0" Content="Duration (mins): " FontWeight="DemiBold"/>
                                 <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Duration}"/>
 
-                                <Label Grid.Row="5" Grid.Column="0" Content="Max Depth (m): "/>
+                                <Label Grid.Row="5" Grid.Column="0" Content="Max Depth (m): " FontWeight="DemiBold"/>
                                 <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding MaxDepth}"/>
 
-                                <Label Grid.Row="6" Grid.Column="0" Content="Average Depth (m): "/>
+                                <Label Grid.Row="6" Grid.Column="0" Content="Average Depth (m): " FontWeight="DemiBold"/>
                                 <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding AverageDepth}"/>
                             </Grid>
                         </Grid>
-                        
-                        
                     </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -111,19 +110,11 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-
-                <Grid.Resources>
-                    <Style TargetType="Button">
-                        <Setter Property="Width" Value="100"/>
-                        <Setter Property="Height" Value="30"/>
-                        <Setter Property="Margin" Value="2"/>
-                    </Style>
-                </Grid.Resources>
                 
-                <Button Grid.Row="0" Grid.Column="0" Content="New Entry" Command="{Binding NewEntryCommand}"/>
-                <Button Grid.Row="0" Grid.Column="1" Content="Edit Entry" Command="{Binding EditEntryCommand}"/>
-                <Button Grid.Row="1" Grid.Column="0" Content="Duplicate Entry" Command="{Binding DuplicateEntryCommand}"/>
-                <Button Grid.Row="1" Grid.Column="1" Content="Delete Entry" Command="{Binding DeleteEntryCommand}"/>
+                <Button Grid.Row="0" Grid.Column="0" Content="New" Command="{Binding NewEntryCommand}"/>
+                <Button Grid.Row="0" Grid.Column="1" Content="Edit" Command="{Binding EditEntryCommand}"/>
+                <Button Grid.Row="1" Grid.Column="0" Content="Duplicate" Command="{Binding DuplicateEntryCommand}"/>
+                <Button Grid.Row="1" Grid.Column="1" Content="Delete" Command="{Binding DeleteEntryCommand}"/>
             </Grid>
         </GroupBox>
         

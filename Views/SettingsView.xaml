@@ -7,7 +7,6 @@
       xmlns:vm="clr-namespace:DiveLogApplication.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Background="White"
       Title="SettingsView">
     <Page.DataContext>
         <vm:SettingsViewModel/>
@@ -20,10 +19,10 @@
 
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         
-        <GroupBox Header="General" Grid.Row="0">
+        <GroupBox Header="General" Grid.Row="0" FontSize="14">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.2*"/>
@@ -31,43 +30,43 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Content="Dive License Directory"/>
+                <Label Grid.Row="0" Grid.Column="0" Content="Dive License Directory" VerticalAlignment="Center"/>
                 <Grid Grid.Row="0" Grid.Column="1" Margin="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.8*"/>
                             <ColumnDefinition Width="0.2*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding DiveLicenseDirectory}" VerticalContentAlignment="Center"/>
+                        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding DiveLicenseDirectory}" VerticalContentAlignment="Center" Height="35"/>
                         <Button Grid.Row="0" Grid.Column="1" Content="..." Command="{Binding SelectDirectoryCommand}" CommandParameter="DiveLicenseDirectory"/>                        
                     </Grid>
                 </Grid>
 
-                <Label Grid.Row="1" Grid.Column="0" Content="Dive Log Directory"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="Dive Log Directory" VerticalAlignment="Center"/>
                 <Grid Grid.Row="1" Grid.Column="1" Margin="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.8*"/>
                             <ColumnDefinition Width="0.2*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding DiveLogDirectory}" VerticalContentAlignment="Center"/>
+                        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding DiveLogDirectory}" VerticalContentAlignment="Center" Height="35"/>
                         <Button Grid.Row="0" Grid.Column="1" Content="..." Command="{Binding SelectDirectoryCommand}" CommandParameter="DiveLogDirectory"/>
                     </Grid>
                 </Grid>
 
-                <Label Grid.Row="2" Grid.Column="0" Content="User name"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="User name" VerticalAlignment="Center" />
                 <Grid Grid.Row="2" Grid.Column="1" Margin="2">
-                    <TextBox Text="{Binding Username}" VerticalContentAlignment="Center"/>
+                    <TextBox Text="{Binding Username}" VerticalContentAlignment="Center" Height="35"/>
                 </Grid>
             </Grid>
         </GroupBox>
 
-        <Button Grid.Row="1" Content="Save" HorizontalAlignment="Right" Width="80" Margin="5" Command="{Binding SaveCommand}"/>
+        <Button Grid.Row="1" Content="Save" HorizontalAlignment="Right" Command="{Binding SaveCommand}"/>
     </Grid>
 </Page>

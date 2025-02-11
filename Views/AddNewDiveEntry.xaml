@@ -8,9 +8,11 @@
         xmlns:r="clr-namespace:DiveLogApplication.Views.CustomControls"
         mc:Ignorable="d"
         Title="{Binding EntryType}"
+        Background="AliceBlue"
         SizeToContent="Height"
-        Width="450"
-        Height="Auto"
+        Width="550"
+        Height="500"
+        FontSize="15"
         >
     <Window.DataContext>
         <vm:AddNewDiveEntryViewModel/>
@@ -28,15 +30,15 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
 
                 <Grid.Resources>
@@ -51,13 +53,13 @@
                 </Grid.Resources>
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Entry number: "/>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DiveLogIndex}"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DiveLogIndex}" Margin="2"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Location: "/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Location}"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Location}" Margin="2"/>
 
                 <Label Grid.Row="2" Grid.Column="0" Content="Dive Site: "/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DiveSite}"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DiveSite}" Margin="2"/>
 
                 <Label Grid.Row="3" Grid.Column="0" Content="Start Time: "/>
                 <r:CustomDatePicker Grid.Row="3" Grid.Column="1" 
@@ -66,7 +68,9 @@
                                     Minute="{Binding StartingMinute}" 
                                     SelectedDayOrNight="{Binding StartingDayOrNight}"
                                     HasValidationError="{Binding HasValidationError}"
-                                    IsEnabled="{Binding IsEditable}"/>
+                                    IsEnabled="{Binding IsEditable}"
+                                    Margin="2"
+                                    />
 
                 <Label Grid.Row="4" Grid.Column="0" Content="End Time: "/>
                 <r:CustomDatePicker Grid.Row="4" Grid.Column="1" 
@@ -75,16 +79,17 @@
                                     Minute="{Binding EndingMinute}" 
                                     SelectedDayOrNight="{Binding EndingDayOrNight}"
                                     HasValidationError="{Binding HasValidationError}"
-                                    IsEnabled="{Binding IsEditable}"/>
+                                    IsEnabled="{Binding IsEditable}"
+                                    Margin="2"/>
 
                 <Label Grid.Row="5" Grid.Column="0" Content="Duration (mins): "/>
-                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Duration}" IsReadOnly="True" IsEnabled="False"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Duration}" IsReadOnly="True" IsEnabled="False" Margin="2"/>
 
                 <Label Grid.Row="6" Grid.Column="0" Content="Max Depth (m): "/>
-                <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding MaxDepth}"/>
+                <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding MaxDepth}" Margin="2"/>
 
                 <Label Grid.Row="7" Grid.Column="0" Content="Average Depth (m): "/>
-                <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding AverageDepth}"/>
+                <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding AverageDepth}" Margin="2"/>
             </Grid>
 
             <Grid Grid.Row="1" HorizontalAlignment="Right">
@@ -95,16 +100,16 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid.Resources>
-                    <Style TargetType="Button">
+                    <Style TargetType="Button" x:Key="ButtonStyle">
                         <Setter Property="Width" Value="80"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="Margin" Value="2"/>
                     </Style>
                 </Grid.Resources>
 
-                <Button Grid.Column="0" Content="Edit" Command="{Binding EditEntryCommand}"/>
-                <Button Grid.Column="1" Content="Save" Command="{Binding SaveEntryCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
-                <Button Grid.Column="2" Content="Cancel" Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
+                <Button Grid.Column="0" Width="80" Content="Edit" Command="{Binding EditEntryCommand}"/>
+                <Button Grid.Column="1" Width="80" Content="Save" Command="{Binding SaveEntryCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
+                <Button Grid.Column="2" Width="80" Content="Cancel" Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
             </Grid>
         </Grid>
     </Border>

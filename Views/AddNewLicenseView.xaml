@@ -5,11 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DiveLogApplication.Views" xmlns:viewmodels="clr-namespace:DiveLogApplication.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:AddNewLicenseViewModel}"
         mc:Ignorable="d" 
-      d:DesignHeight="250" d:DesignWidth="400"
-        Height="250" Width="400"
-      Background="White"
-      Title="Add/Edit License">
-
+        Height="400" Width="400"
+      Background="AliceBlue"
+        FontSize="15"
+      Title="{Binding EntryType}">
     <Window.DataContext>
         <viewmodels:AddNewLicenseViewModel/>
     </Window.DataContext>
@@ -21,43 +20,46 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
 
         <Grid.Resources>
             <Style TargetType="Label">
-                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
             </Style>
         </Grid.Resources>
 
         <Label Grid.Row="0" Grid.Column="0" Content="Level:"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding LicenseLevel, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="0,2,0,2" Text="{Binding LicenseLevel, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="1" Grid.Column="0" Content="Provider:"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LicenseProvider, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="0,2,0,2" Text="{Binding LicenseProvider, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Dive Centre:"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DiveCentre, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="0,2,0,2" Text="{Binding DiveCentre, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="3" Grid.Column="0" Content="Location:"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Location, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="0,2,0,2" Text="{Binding Location, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="4" Grid.Column="0" Content="License Id:"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="0,2,0,2" Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="5" Grid.Column="0" Content="Obtained Date:"/>
-        <DatePicker Grid.Row="5" Grid.Column="1" SelectedDate="{Binding IssuedDate}"/>
+        <DatePicker Grid.Row="5" Grid.Column="1" Margin="0,2,0,2" SelectedDate="{Binding IssuedDate}"/>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button Content="Save" Width="80" Height="25" Margin="5,5,5,5" Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" IsEnabled="{Binding CanSave}"/>
-            <Button Content="Cancel" Width="80" Height="25" Margin="5,5,5,5" Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
-            <Button Content="Clear" Width="80" Height="25" Margin="5,5,5,5" Command="{Binding ClearCommand}"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Button Content="Save" Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" IsEnabled="{Binding CanSave}"/>
+            <Button Content="Clear" Command="{Binding ClearCommand}"/>
+            <Button Content="Cancel" Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -6,8 +6,8 @@
       xmlns:local="clr-namespace:DiveLogApplication"
       xmlns:vm="clr-namespace:DiveLogApplication.ViewModels"
       mc:Ignorable="d" 
+      FontSize="15"
       d:DesignHeight="450" d:DesignWidth="800"
-      Background="White"
       Title="User Profile">
     <Page.DataContext>
         <vm:UserProfileViewModel/>
@@ -29,7 +29,7 @@
                 <Border Margin="5" Grid.Row="0" Grid.Column="0">
                     <Image Width="Auto" Source="{Binding ProfilePicturePath}" HorizontalAlignment="Center"/>
                 </Border>
-                <Button Grid.Row="1" Grid.Column="0" Content="Select Image" Width="80" Height="25" VerticalAlignment="Top" Command="{Binding SelectProfilePictureCommand}"/>
+                <Button Grid.Row="1" Grid.Column="0" Content="Select Image" VerticalAlignment="Top" Command="{Binding SelectProfilePictureCommand}"/>
             </Grid>
         </Border>
         
@@ -40,24 +40,30 @@
                 <RowDefinition Height="320"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
-            <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding DiveLicenseList}" SelectedItem="{Binding SelectedDiveLicense}" 
-                      IsReadOnly="True" SelectionMode="Single"
-                    RowHeight="30" Width="Auto" ColumnHeaderHeight="30" SelectionChanged="DataGrid_SelectionChanged">
+            <DataGrid Grid.Row="1" AutoGenerateColumns="False" 
+                  ItemsSource="{Binding DiveLicenseList}" 
+                  SelectedItem="{Binding SelectedDiveLicense}" 
+                  IsReadOnly="True" SelectionMode="Single"
+                  Background="AliceBlue" RowBackground="AliceBlue" AlternatingRowBackground="#c2d8ff"
+                  RowHeight="30" Width="Auto" ColumnHeaderHeight="30"   ColumnWidth="*"
+                  SelectionChanged="DataGrid_SelectionChanged" 
+                  HorizontalScrollBarVisibility="Auto"
+                  HeadersVisibility="Column">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="License Level" Binding="{Binding LicenseLevel}" Width="Auto"/>
-                    <DataGridTextColumn Header="License ID" Binding="{Binding Id}" Width="Auto"/>
-                    <DataGridTextColumn Header="License Provider" Binding="{Binding LicenseProvider}" Width="Auto"/>
-                    <DataGridTextColumn Header="Dive Centre" Binding="{Binding DiveCentre}" Width="Auto"/>
-                    <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="Auto"/>
-                    <DataGridTextColumn Header="Issued Date" Binding="{Binding IssuedDate, StringFormat={}{0:dd/MM/yyyy}}" Width="Auto"/>
+                    <DataGridTextColumn Header="License Level" Binding="{Binding LicenseLevel}" Width="*"/>
+                    <DataGridTextColumn Header="License ID" Binding="{Binding Id}" Width="*"/>
+                    <DataGridTextColumn Header="License Provider" Binding="{Binding LicenseProvider}" Width="*"/>
+                    <DataGridTextColumn Header="Dive Centre" Binding="{Binding DiveCentre}" Width="*"/>
+                    <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="*"/>
+                    <DataGridTextColumn Header="Issued Date" Binding="{Binding IssuedDate, StringFormat={}{0:dd/MM/yyyy}}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
 
+
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Add" Margin="3" Width="80" Command="{Binding AddNewLicenseCommand}"/>
-                <Button Content="Edit" Margin="3" Width="80" Command="{Binding EditLicenseCommand}"/>
-                <Button Content="Delete" Margin="3" Width="80" Command="{Binding DeleteLicenseCommand}"/>
+                <Button Content="Add" Margin="5" Width="90" Command="{Binding AddNewLicenseCommand}"/>
+                <Button Content="Edit" Margin="5" Width="90" Command="{Binding EditLicenseCommand}"/>
+                <Button Content="Delete" Margin="5" Width="90" Command="{Binding DeleteLicenseCommand}"/>
             </StackPanel>
         </Grid>
     </Grid>

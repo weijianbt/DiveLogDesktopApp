@@ -1,5 +1,6 @@
 ﻿using DiveLogApplication.Core;
 using DiveLogApplication.Models;
+using DiveLogApplication.Utilities;
 using DiveLogApplication.Views;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -100,9 +101,12 @@ namespace DiveLogApplication.ViewModels
                 {
                     var dialog = new AddNewLicenseView();
                     var vm = new AddNewLicenseViewModel();
+                    vm.EntryType = "Add New License";
                     dialog.DataContext = vm;
 
-                    if (dialog.ShowDialog() == true)
+                    var result = DialogHelper.ShowCenteredDialog(Application.Current.MainWindow, dialog);
+
+                    if (result == true)
                     {
                         var newLicense = vm.NewDiveLicense;
                         _diveLogAppData.AddLicense(newLicense);
@@ -133,9 +137,12 @@ namespace DiveLogApplication.ViewModels
                     {
                         var dialog = new AddNewLicenseView();
                         var vm = new AddNewLicenseViewModel(_selectedDiveLicense, true);
+                        vm.EntryType = "Edit License";
                         dialog.DataContext = vm;
 
-                        if (dialog.ShowDialog() == true)
+                        var result = DialogHelper.ShowCenteredDialog(Application.Current.MainWindow, dialog);
+
+                        if (result == true)
                         {
                             var newLicense = vm.NewDiveLicense;
                             var licenseListIndex = _diveLogAppData.DiveLicenseList.IndexOf(_selectedDiveLicense);

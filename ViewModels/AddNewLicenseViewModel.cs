@@ -126,6 +126,7 @@ namespace DiveLogApplication.ViewModels
             }
         }
 
+        public string EntryType { get; set; }
         public DiveLicenseManager DiveLicenseManager { get; private set; }
         public RelayCommand LoadedCommand { get; set; }
         public RelayCommand SaveCommand { get; set; }

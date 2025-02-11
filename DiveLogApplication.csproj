@@ -170,9 +170,19 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="res\diveLicenseImage.png" />
+    <Resource Include="res\divelogImage.png" />
+    <Resource Include="res\settingsImage.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="res\favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="res\homepageImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="res\diverImage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

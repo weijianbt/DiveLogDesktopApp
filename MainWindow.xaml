@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:DiveLogApplication"
         xmlns:vm="clr-namespace:DiveLogApplication.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000" Loaded="Window_Loaded">
+        Background="#9cbdf7"
+        WindowStartupLocation="CenterScreen"
+        Title="Your Dive Journey" Height="700" Width="1000" Loaded="Window_Loaded">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
@@ -18,23 +20,50 @@
 
         <Grid.Resources>
             <Style TargetType="Button">
-                <Setter Property="Width" Value="70"/>
-                <Setter Property="Height" Value="70"/>
+                <Setter Property="Width" Value="100"/>
+                <Setter Property="Height" Value="100"/>
                 <Setter Property="Margin" Value="3"/>
+            </Style>
+
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="FontWeight" Value="DemiBold"/>
             </Style>
         </Grid.Resources>
 
         <Border Grid.Column="0" BorderBrush="LightGray" BorderThickness="1">
             <StackPanel Orientation="Vertical" Margin="5">
-                <Button Content="Main Page" Command="{Binding NavigateMainPageCommand}"/>
-                <Button Content="User Profile" Command="{Binding NavigateUserProfileCommand}"/>
-                <Button Content="Dive logs" Command="{Binding NavigateDiveLogCommand}"/>
-                <Button Content="Settings" Command="{Binding NavigateSettingsCommand}"/>
+                <Button Command="{Binding NavigateMainPageCommand}" Background="Transparent">
+                    <StackPanel>
+                        <Image Width="70" Height="70" Source="res/homepageImage.png" Stretch="UniformToFill"/>
+                        <TextBlock Text="Home"/>
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding NavigateUserProfileCommand}" Background="Transparent">
+                    <StackPanel>
+                        <Image Width="70" Height="70" Source="res/diveLicenseImage.png" Stretch="UniformToFill"/>
+                        <TextBlock Text="License"/>
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding NavigateDiveLogCommand}" Background="Transparent">
+                    <StackPanel>
+                        <Image Width="70" Height="70" Source="res/divelogImage.png" Stretch="UniformToFill"/>
+                        <TextBlock Text="Dive Logs"/>
+                    </StackPanel>
+                </Button >
+                <Button Command="{Binding NavigateSettingsCommand}" Background="Transparent">
+                    <StackPanel>
+                        <Image Width="70" Height="70" Source="res/settingsImage.png" Stretch="UniformToFill"/>
+                        <TextBlock Text="Settings"/>
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </Border>
 
         <Border Grid.Column="1">
-            <Frame NavigationUIVisibility="Hidden" Content="{Binding SelectedContent}"/>
+            <Frame NavigationUIVisibility="Hidden" Content="{Binding SelectedContent}" Background="{StaticResource PageBackgroundColor}"/>
         </Border>
 
     </Grid>
