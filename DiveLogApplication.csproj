@@ -166,6 +166,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -183,6 +184,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="res\diverImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="screenshots\DiveLicensesView.png" />
+    <Resource Include="screenshots\DiveLogsView.png" />
+    <Resource Include="screenshots\Homepage.png" />
+    <Resource Include="screenshots\SettingsView.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
